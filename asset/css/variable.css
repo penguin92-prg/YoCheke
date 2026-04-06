@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+:root{
+  --base1: #ffffff;
+  --base2: #f8f8fb;
+  --base3: #d4d4d8;
+  --base4: #c4c4c8;
+  --base5: #b4b4b8;
+
+  --blue1: #0017c1;
+  --blue3: #d9e6ff;
+
+  -red1: #fa0000;
+
+  --text1: #333333;
+  --text2: #666666;
+  --text3: #999999;
+  --text4: #bbbbbb;
+}
