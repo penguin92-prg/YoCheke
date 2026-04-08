@@ -49,6 +49,22 @@ header{
 }
 
 header>a{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+
+  width: fit-content;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  text-decoration: none;
+}
+
+header>a>p{
   display: block;
 
   width: fit-content;
@@ -65,7 +81,26 @@ header>a{
   line-height: 10rem;
   text-align: justify;
   text-decoration: none;
-  letter-spacing: 0;
+  letter-spacing: 0.1rem;
+}
+header>a>small{
+  display: block;
+
+  width: fit-content;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 10rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0.1rem;
 }
 
 header>div{
@@ -107,5 +142,115 @@ header>div>a:hover{
   text-decoration: underline;
 }
 
+span#topMargin{
+  display: block;
+
+  width: 100%;
+  height: 10rem;
+
+  margin: 0;
+  padding: 0;
+}
+
 /* ============================================================ */
+
+div#cookieConfirm{
+  display: block;
+  
+  width: 40%;
+  height: auto;
+
+  margin: 0;
+  padding: 2rem;
+
+  border: none;
+  border-radius: 1rem 1rem 0 0;
+
+  background-color: var(--base2);
+}
+
+div#cookieConfirm>h3{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#cookieConfirm>p{
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  margin: 1rem 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#cookieConfirm>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+  height: auto;
+
+  margin: 2rem 0 0 0;
+  padding: 0;
+}
+
+div#cookieConfirm>div>button{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0.5rem 2rem;
+
+  border: none;
+  border-radius: 0;
+
+  background-color: var(--blue2);
+
+  color: var(--base1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+div#cookieConfirm>div>button:hover{
+  background-color: var(--blue1);
+}
+
 /* ============================================================ */
