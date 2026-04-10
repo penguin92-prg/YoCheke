@@ -147,13 +147,81 @@ span#topMargin{
 /* ============================================================ */
 
 div#titleContainer{
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
 
   width: 100%;
   height: calc(100dvh - 10rem);
 
-  background-color: var(--base2);
-  background-image: url("../image/title-background.jpg");
+  margin: 0;
+  padding: 0;
+
+  background: linear-gradient(#ffffffff, #ffffff66), url(../image/title-background.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+div#titleContainer>h1{
+  display: block;
+
+  width: calc(100% - 20rem * 2);
+  height: auto;
+
+  margin: 0;
+  padding: 2rem 20rem;
+
+  background-color: #00000020;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+
+  line-height: 5rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#titleContainer>h2{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0 0 2rem 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+
+  line-height: 3rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#titleContainer>div>i{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-size: 2rem;
+
+  line-height: 3rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
 }
 
 /* ============================================================ */
