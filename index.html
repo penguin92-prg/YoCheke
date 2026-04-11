@@ -68,22 +68,171 @@
     <!-- ================================================== -->
 
     <div id="mainWindow">
-      <ul id="termList">
-        <p>タームを選択</p>
-        <li class="active">1年-S1</li>
-        <li>1年-S2</li>
-        <li>1年-A1</li>
-        <li>1年-A2</li>
-        <li>2年-S1</li>
-        <li>2年-S2</li>
-        <li>2年-A1</li>
-        <li>2年-A2</li>
-      </ul>
+      <div id="term">
+        <h3>授業登録するタームを選択</h3>
+        <ul id="termList">
+          <li class="active" data-value="1S1">1年-S1</li>
+          <li data-value="1S2">1年-S2</li>
+          <li data-value="1A1">1年-A1</li>
+          <li data-value="1A2">1年-A2</li>
+          <li data-value="2S1">2年-S1</li>
+          <li data-value="2S2">2年-S2</li>
+          <li data-value="2A1">2年-A1</li>
+          <li data-value="2A2">2年-A2</li>
+          <li data-value="other">その他</li>
+        </ul>
+      </div>
+
+      <div id="classView">
+        <h3>登録済みの授業</h3>
+        <div id="classTable">
+          <div class="classTableRow">
+            <div>
+              <p></p>
+            </div>
+            <div>
+              <p>月</p>
+            </div>
+            <div>
+              <p>火</p>
+            </div>
+            <div>
+              <p>水</p>
+            </div>
+            <div>
+              <p>木</p>
+            </div>
+            <div>
+              <p>金</p>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>1限</p>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">英語中級（クラス指定セメスター型）</a>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">数理科学基礎</a>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>2限</p>
+            </div>
+            <div>
+              <a href="">身体運動･健康科学実習Ⅰ</a>
+            </div>
+            <div>
+              <a href="">基礎科学</a>
+            </div>
+            <div>
+              <a href="">ドイツ語一列①</a>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>3限</p>
+            </div>
+            <div>
+              <a href="">ドイツ語二列</a>
+            </div>
+            <div>
+              <a href="">英語一列①</a>
+            </div>
+            <div>
+              <a href="">熱力学</a>
+            </div>
+            <div>
+              <a href="">情報</a>
+            </div>
+            <div>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>4限</p>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">数理科学基礎</a>
+            </div>
+            <div>
+              <a href="">初年次ゼミナール理科</a>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">力学A</a>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>5限</p>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">数理科学基礎演習</a>
+            </div>
+            <div>
+              <a href="">全学体験ゼミナール</a>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">全学自由研究ゼミナール</a>
+            </div>
+          </div>
+
+          <div class="classTableRow">
+            <div>
+              <p>6限</p>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+              <a href="">ロボット競技を体験しようA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="addClass">授業を追加</button>
 
       <div id="checkBtnContainer">
-        <p>登録した授業内容で</p>
-        <button id="shinfuriCheck">進振り要件を満たすかチェック</button>
-        <button id="zenkiShuryoCheck">前期課程修了要件を満たすかチェック</button>
+        <h3>登録した授業内容で</h3>
+        <button id="shinfuriCheck">
+          進振り要件を満たすかチェック
+          <i class="fa-solid fa-angles-right"></i>
+        </button>
+        <button id="zenkiShuryoCheck">
+          前期課程修了要件を満たすかチェック
+          <i class="fa-solid fa-angles-right"></i>
+        </button>
       </div>
     </div>
 

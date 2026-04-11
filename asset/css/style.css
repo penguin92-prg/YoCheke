@@ -161,14 +161,14 @@ div#mainWindow{
 /* ============================================================ */
 /* ============================================================ */
 
-ul#termList{
+div#term{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0;
 
-  width: fit-content;
+  width: calc(100% - 1rem * 2);
   height: auto;
   
   margin: 0;
@@ -180,7 +180,7 @@ ul#termList{
   background-color: var(--base1);
 }
 
-ul#termList>p{
+div#term>h3{
   display: block;
   
   width: fit-content;
@@ -192,12 +192,31 @@ ul#termList>p{
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 
   line-height: 3rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+}
+
+ul#termList{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: fit-content;
+  height: auto;
+  
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
 }
 
 ul#termList>li{
@@ -217,7 +236,7 @@ ul#termList>li{
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 
   line-height: 3rem;
   text-align: justify;
@@ -231,11 +250,143 @@ ul#termList>li.active{
 
   color: var(--base1);
 }
+ul#termList>li.active:hover{
+  filter: brightness(1.2);
+}
 ul#termList>li:not(.active):hover{
   filter: brightness(0.9);
 }
 ul#termList>li:not(.active):active{
   background-color: var(--base3);
+}
+
+/* ============================================================ */
+/* ============================================================ */
+
+div#classView{
+  display: block;
+
+  width: calc(50% - 2rem * 2);
+  height: auto;
+
+  margin: 1rem 0;
+  padding: 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
+}
+
+div#classView>h3{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#classView>div#classTable{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 1px;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#classView>div#classTable>div.classTableRow{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+}
+
+div.classTableRow>div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+
+  width: 100%;
+  height: auto;
+  
+  margin: 0;
+  padding: 0;
+  
+  background-color: var(--base2);
+}
+div.classTableRow:nth-of-type(1)>div{
+  background-color: var(--base3);
+}
+div.classTableRow>div:nth-of-type(1){
+  background-color: var(--base3);
+}
+div.classTableRow>div:has(a){
+  background-color: var(--blue5) !important;
+}
+
+div.classTableRow>div>p{
+  display: block;
+
+  width: calc(100% - 1rem * 2);
+  height: fit-content;
+
+  margin: auto 0;
+  padding: 0 1rem;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+
+  line-height: 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div.classTableRow>div>a{
+  display: block;
+
+  width: calc(100% - 1rem * 2);
+  height: fit-content;
+
+  margin: auto 0;
+  padding: 0 1rem;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+
+  line-height: 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
 }
 
 /* ============================================================ */
@@ -260,7 +411,7 @@ div#checkBtnContainer{
   background-color: var(--base1);
 }
 
-div#checkBtnContainer>p{
+div#checkBtnContainer>h3{
   display: block;
 
   width: fit-content;
@@ -292,9 +443,9 @@ div#checkBtnContainer>button{
   border: none;
   border-radius: 2.5rem;
 
-  background-color: var(--base2);
+  background-color: var(--blue2);
 
-  color: var(--text1);
+  color: var(--base1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
   font-weight: 400;
   font-size: 2rem;
@@ -307,14 +458,28 @@ div#checkBtnContainer>button{
   cursor: pointer;
 }
 div#checkBtnContainer>button:hover{
-  background-color: var(--blue2);
-
-  color: var(--base1);
+  filter: brightness(1.2);
 }
 div#checkBtnContainer>button:active{
   background-color: var(--blue1);
+}
+
+div#checkBtnContainer>button>i{
+  display: inline-block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0 0 0 1rem;
+  padding: 0;
 
   color: var(--base1);
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
 }
 
 /* ============================================================ */
