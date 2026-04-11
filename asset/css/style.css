@@ -240,6 +240,85 @@ ul#termList>li:not(.active):active{
 
 /* ============================================================ */
 /* ============================================================ */
+
+div#checkBtnContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
+}
+
+div#checkBtnContainer>p{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#checkBtnContainer>button{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0.5rem 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base2);
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+div#checkBtnContainer>button:hover{
+  background-color: var(--blue2);
+
+  color: var(--base1);
+}
+div#checkBtnContainer>button:active{
+  background-color: var(--blue1);
+
+  color: var(--base1);
+}
+
+/* ============================================================ */
+/* ============================================================ */
 /* ============================================================ */
 
 div#cookieConfirm{
