@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="description" content="">
 
-    <title>よーちぇけ！｜東京大学 単位履修要件チェッカー</title>
+    <title>よーちぇけ！｜サイトについて</title>
 
     <!-- ================================================== -->
 
@@ -17,7 +17,7 @@
     <!-- ================================================== -->
 
     <!-- リセットcss読み込み -->
-    <link rel="stylesheet" href="./asset/css/reset.css">
+    <link rel="stylesheet" href="../asset/css/reset.css">
 
     <!-- フォントcss読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- css変数読み込み -->
-    <link rel="stylesheet" href="./asset/css/variable.css">
+    <link rel="stylesheet" href="../asset/css/variable.css">
 
     
     <!-- 自作css読み込み -->
@@ -49,15 +49,15 @@
   <body>
 
     <header>
-      <a href="./">
+      <a href="../">
         <p>よーちぇけ！</p>
         <small>東京大学 単位履修要件チェッカー</small>
       </a>
       <div>
-        <a href="./">ホーム</a>
-        <a href="./usage/">使い方</a>
-        <a href="./about/">サイトについて</a>
-        <a href="./request/">要望を送る</a>
+        <a href="../">ホーム</a>
+        <a href="../usage/">使い方</a>
+        <a href="./">サイトについて</a>
+        <a href="../request/">要望を送る</a>
       </div>
     </header>
 
@@ -67,32 +67,45 @@
     <!-- ================================================== -->
     <!-- ================================================== -->
 
-    <div id="mainWindow">
-      <ul id="termList">
-        <p>タームを選択</p>
-        <li class="active">1年-S1</li>
-        <li>1年-S2</li>
-        <li>1年-A1</li>
-        <li>1年-A2</li>
-        <li>2年-S1</li>
-        <li>2年-S2</li>
-        <li>2年-A1</li>
-        <li>2年-A2</li>
-      </ul>
+    <div id="titleContainer">
+      <span></span>
+      <h1>
+        ｢履修､これで大丈夫かなぁ...｣&nbsp;を解決。<br>
+        東大生が、東大生のためにつくった、授業選択のおたすけツール。
+      </h1>
+      <h2>
+        このサイトについて<br>
+        ↓
+      </h2>
     </div>
 
-
     <!-- ================================================== -->
     <!-- ================================================== -->
     <!-- ================================================== -->
 
-    <div id="cookieConfirm">
-      <h3>Cookie の使用について</h3>
-      <p>このサイトでは Cookie を使用したデータ操作を行っています。Cookie で取得した情報は、履修要件の確認という本サイトの目的にのみ使用します。</p>
-      <div>
-        <button id="cookie-agree">同意する</button>
-        <button id="cookie-disagree">拒否する</button>
-      </div>
+    <div class="descContainer">
+      <h1>もう、迷わない。</h1>
+      <p>
+        東京大学の履修システムは非常に複雑で、必修である「基礎科目」に加えて「準必修」「展開科目」「総合科目」「主題科目」など様々な種類の授業が用意されています。
+        進振りや後期課程進学には、それらの授業を要件に沿って満遍なくとることが必要です。
+        このサイトは、そんな複雑な履修システムの中で学生の皆さんを手助けするツールとして制作しました。
+        系列別総合科目や主題科目など、履修要件が複雑な部分をクリアにして、あなたの履修が問題ないかをチェックします。
+        安心して履修登録を進めるため、ぜひこのサイトを活用してください。
+      </p>
+    </div>
+
+  <div class="descContainer">
+    <h1>制作者</h1>
+    <ul>
+      <li>プロジェクト立案者･リーダー | 東京大学 理科一類 1年 寺田侑史</li>
+    </ul>
+  </div>
+
+    <div class="descContainer">
+      <h1>免責事項</h1>
+      <p>
+        非公式のサイトですので、正確な情報は履修の手引きやUTAS/UTOLを参照していただくよう、お願いしております。あくまでも本サイトの情報は参考としてご利用ください。掲載されている内容をもとに生じたトラブルや損害等については、責任を負いかねますのでご了承ください。
+      </p>
     </div>
 
     <!-- ================================================== -->

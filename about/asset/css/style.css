@@ -146,128 +146,17 @@ span#topMargin{
 /* ============================================================ */
 /* ============================================================ */
 
-div#mainWindow{
+div.descContainer{
   display: block;
 
-  width: calc(100% - 4rem * 2);
-  height: calc(100dvh - 10rem - 5rem - 2rem * 2);
-
-  margin: 0;
-  padding: 2rem 4rem;
-
-  background-color: var(--base2);
-}
-
-/* ============================================================ */
-/* ============================================================ */
-
-ul#termList{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-
-  width: fit-content;
-  height: auto;
-  
-  margin: 0;
-  padding: 1rem;
-
-  border: none;
-  border-radius: 2.5rem;
-
-  background-color: var(--base1);
-}
-
-ul#termList>p{
-  display: block;
-  
-  width: fit-content;
+  width: 60%;
   height: auto;
 
-  margin: 0 2rem 0 1rem;
+  margin: 5rem auto;
   padding: 0;
-
-  color: var(--text1);
-  font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-
-  line-height: 3rem;
-  text-align: justify;
-  text-decoration: none;
-  letter-spacing: 0;
 }
 
-ul#termList>li{
-  display: block;
-
-  width: fit-content;
-  height: auto;
-
-  margin: 0;
-  padding: 0 3rem;
-
-  border: none;
-  border-radius: 1.5rem;
-
-  background-color: var(--base2);
-
-  color: var(--text1);
-  font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-
-  line-height: 3rem;
-  text-align: justify;
-  text-decoration: none;
-  letter-spacing: 0;
-  
-  cursor: pointer;
-}
-ul#termList>li.active{
-  background-color: var(--blue2);
-
-  color: var(--base1);
-}
-ul#termList>li:not(.active):hover{
-  filter: brightness(0.9);
-}
-ul#termList>li:not(.active):active{
-  background-color: var(--base3);
-}
-
-/* ============================================================ */
-/* ============================================================ */
-/* ============================================================ */
-
-div#cookieConfirm{
-  position: fixed;
-  left: 30%;
-  bottom: 0;
-  display: block;
-  
-  width: calc(40% - 3rem * 2);
-  height: auto;
-
-  margin: 0;
-  padding: 3rem;
-
-  border: none;
-  border-radius: 2rem 2rem 0 0;
-
-  background-color: var(--base2);
-
-  transition: all 0.2s;
-
-  transform: translateY(100%);
-}
-div#cookieConfirm.active{
-  transform: translateY(0);
-}
-
-div#cookieConfirm>h3{
+div.descContainer>h1{
   display: block;
 
   width: fit-content;
@@ -278,8 +167,28 @@ div#cookieConfirm>h3{
 
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 500;
-  font-size: 2rem;
+  font-weight: 400;
+  font-size: 3rem;
+
+  line-height: 5rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div.descContainer>p{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.75rem;
 
   line-height: 4rem;
   text-align: justify;
@@ -287,71 +196,108 @@ div#cookieConfirm>h3{
   letter-spacing: 0;
 }
 
-div#cookieConfirm>p{
+div.descContainer>ul{
   display: block;
 
-  width: 100%;
+  width: fit-content;
   height: auto;
 
-  margin: 1rem 0;
+  margin: 0 0 0 2rem;
   padding: 0;
 
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 
-  line-height: 3rem;
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+  
+  list-style-type: square;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+/* ============================================================ */
+
+div#titleContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+
+  width: 100%;
+  height: calc(100dvh - 10rem);
+
+  margin: 0;
+  padding: 0;
+
+  background: linear-gradient(#ffffffff, #ffffff66), url(../image/title-background.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+div#titleContainer>h1{
+  display: block;
+
+  width: calc(100% - 20rem * 2);
+  height: auto;
+
+  margin: 0;
+  padding: 2rem 20rem;
+
+  background-color: #00000020;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+
+  line-height: 5rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
 }
 
-div#cookieConfirm>div{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
+div#titleContainer>h2{
+  display: block;
 
-  width: 100%;
+  width: fit-content;
   height: auto;
 
-  margin: 2rem 0 0 0;
+  margin: 0 0 2rem 0;
   padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+
+  line-height: 3rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
 }
 
-div#cookieConfirm>div>button{
+div#titleContainer>div>i{
   display: block;
 
   width: fit-content;
   height: auto;
 
   margin: 0;
-  padding: 0.5rem 2rem;
+  padding: 0;
 
-  border: none;
-  border-radius: 0;
-
-  background-color: var(--blue2);
-
-  color: var(--base1);
-  font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
+  color: var(--text1);
+  font-size: 2rem;
 
   line-height: 3rem;
-  text-align: justify;
+  text-align: center;
   text-decoration: none;
   letter-spacing: 0;
-
-  cursor: pointer;
-}
-div#cookieConfirm>div>button:hover{
-  filter: brightness(1.2);
-}
-div#cookieConfirm>div>button:active{
-  background-color: var(--blue1);
 }
 
 /* ============================================================ */
