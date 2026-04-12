@@ -147,7 +147,12 @@ span#topMargin{
 /* ============================================================ */
 
 div#mainWindow{
-  display: block;
+  display: grid;
+  grid-template:
+    "term term" 5rem
+    "class others" 1fr
+    / 1fr 1fr;
+  gap: 2rem;
 
   width: calc(100% - 4rem * 2);
   height: calc(100dvh - 10rem - 5rem - 2rem * 2);
@@ -162,6 +167,8 @@ div#mainWindow{
 /* ============================================================ */
 
 div#term{
+  grid-area: term;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -169,7 +176,7 @@ div#term{
   gap: 0;
 
   width: calc(100% - 1rem * 2);
-  height: auto;
+  height: 3rem;
   
   margin: 0;
   padding: 1rem;
@@ -198,17 +205,19 @@ div#term>h3{
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+
+  white-space: nowrap;
 }
 
 ul#termList{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 1rem;
 
   width: fit-content;
-  height: auto;
+  height: 3rem;
   
   margin: 0;
   padding: 0;
@@ -216,7 +225,12 @@ ul#termList{
   border: none;
   border-radius: 2.5rem;
 
-  background-color: var(--base1);
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+ul#termList::-webkit-scrollbar{
+  display: none;
 }
 
 ul#termList>li{
@@ -242,6 +256,8 @@ ul#termList>li{
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+
+  white-space: nowrap;
   
   cursor: pointer;
 }
@@ -264,12 +280,14 @@ ul#termList>li:not(.active):active{
 /* ============================================================ */
 
 div#classView{
+  grid-area: class;
+  
   display: block;
 
-  width: calc(50% - 2rem * 2);
-  height: auto;
+  width: calc(100% - 2rem * 2);
+  height: calc(100% - 2rem * 2);
 
-  margin: 1rem 0;
+  margin: 0;
   padding: 2rem;
 
   border: none;
@@ -284,47 +302,38 @@ div#classView>h3{
   width: fit-content;
   height: auto;
 
-  margin: 0;
+  margin: 0 0 1rem 0;
   padding: 0;
 
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1.75rem;
 
-  line-height: 4rem;
+  line-height: 3rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
 }
 
 div#classView>div#classTable{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  gap: 1px;
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-}
-
-div#classView>div#classTable>div.classTableRow{
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1px;
+  grid-template-rows: 3rem repeat(6, 1fr);
+  grid-template-columns: 5rem repeat(5, 1fr);
 
   width: 100%;
-  height: auto;
+  height: calc(100% - 3rem - 1rem);
 
   margin: 0;
   padding: 0;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  overflow: hidden;
 }
 
-div.classTableRow>div{
+div#classTable>div{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -339,17 +348,14 @@ div.classTableRow>div{
   
   background-color: var(--base2);
 }
-div.classTableRow:nth-of-type(1)>div{
+div#classTable>div:nth-of-type(-n+6), div#classTable>div:nth-of-type(6n-5){
   background-color: var(--base3);
 }
-div.classTableRow>div:nth-of-type(1){
-  background-color: var(--base3);
-}
-div.classTableRow>div:has(a){
+div#classTable>div:has(a){
   background-color: var(--blue5) !important;
 }
 
-div.classTableRow>div>p{
+div#classTable>div>p{
   display: block;
 
   width: calc(100% - 1rem * 2);
@@ -363,17 +369,18 @@ div.classTableRow>div>p{
   font-weight: 500;
   font-size: 1.5rem;
 
-  line-height: 2.5rem;
+  line-height: 3rem;
   text-align: center;
   text-decoration: none;
   letter-spacing: 0;
 }
 
-div.classTableRow>div>a{
-  display: block;
+div#classTable>div>a{
+  display: -webkit-box;
 
   width: calc(100% - 1rem * 2);
   height: fit-content;
+  max-height: 5rem;
 
   margin: auto 0;
   padding: 0 1rem;
@@ -387,6 +394,10 @@ div.classTableRow>div>a{
   text-align: center;
   text-decoration: none;
   letter-spacing: 0;
+  
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* ============================================================ */
