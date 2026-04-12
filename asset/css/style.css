@@ -318,8 +318,10 @@ div#classView>h3{
 
 div#classView>div#classTable{
   display: grid;
+  grid-auto-flow: column;
   grid-template-rows: 3rem repeat(6, 1fr);
   grid-template-columns: 5rem repeat(5, 1fr);
+  gap: 0.125rem;
 
   width: 100%;
   height: calc(100% - 3rem - 1rem);
@@ -348,7 +350,7 @@ div#classTable>div{
   
   background-color: var(--base2);
 }
-div#classTable>div:nth-of-type(-n+6), div#classTable>div:nth-of-type(6n-5){
+div#classTable>div:nth-of-type(-n+7), div#classTable>div:nth-of-type(7n-6){
   background-color: var(--base3);
 }
 div#classTable>div:has(a){
