@@ -96,13 +96,30 @@ window.addEventListener("load", function(){
     ]
   ];
 
+  document.cookie = `class1S1=${classAll};max-age=${String(60*60*2)}`;
+
   const days = ["月", "火", "水", "木", "金"];
 
   for (const [dayIndex, classDaily] of classAll.entries()) {
+
+    // 曜日名を挿入
+    let dayNameContainer = document.createElement("div");
+    let dayName = document.createElement("p");
+    dayName.innerText = days[dayIndex];
+    dayNameContainer.appendChild(dayName);
+    document.getElementById("classTable").appendChild(dayNameContainer);
+
     for (const [periodIndex, classData] of classDaily.entries()) {
+
+      // 授業を挿入
+      let classNameContainer = document.createElement("div");
       if (Object.keys(classData).length !== 0) {
-        console.log(`${days[dayIndex]}曜 ${periodIndex + 1}限: ${classData.name} (${classData.category})`);
+        let className = document.createElement("a");
+        className.innerText = classData.name;
+        classNameContainer.appendChild(className);
+        // console.log(`${days[dayIndex]}曜 ${periodIndex + 1}限: ${classData.name} (${classData.category})`);
       }
+      document.getElementById("classTable").appendChild(classNameContainer);
     }
   }
 });
