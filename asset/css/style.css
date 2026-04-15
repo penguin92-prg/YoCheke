@@ -278,6 +278,7 @@ ul#termList>li:not(.active):active{
 
 /* ============================================================ */
 /* ============================================================ */
+/* ============================================================ */
 
 div#classView{
   grid-area: class;
@@ -319,7 +320,6 @@ div#classView>h3{
 div#classView>div#classTable{
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: 3rem repeat(6, 1fr);
   grid-template-columns: 5rem repeat(5, 1fr);
   gap: 0.125rem;
 
@@ -335,29 +335,41 @@ div#classView>div#classTable{
   overflow: hidden;
 }
 
-div#classTable>div{
+/* ============================================================ */
+/* ============================================================ */
+
+/* 時限名 */
+div#classTable>div.classTableColumn{
+  display: grid;
+  grid-template-rows: 3rem repeat(6, 1fr);
+  gap: 1px;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--base1);
+}
+
+div#classTable>div.classTableColumn>div{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0;
 
   width: 100%;
-  height: auto;
-  
+  height: 100%;
+
   margin: 0;
   padding: 0;
-  
-  background-color: var(--base2);
 }
-div#classTable>div:nth-of-type(-n+7), div#classTable>div:nth-of-type(7n-6){
+div#classTable>div#classTablePeriodName>div{
   background-color: var(--base3);
 }
-div#classTable>div:has(a){
-  background-color: var(--blue5) !important;
-}
 
-div#classTable>div>p{
+div#classTable>div.classTableColumn>div>p{
   display: block;
 
   width: calc(100% - 1rem * 2);
@@ -375,6 +387,13 @@ div#classTable>div>p{
   text-align: center;
   text-decoration: none;
   letter-spacing: 0;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+
+div#classTable>div.classTableColumn>div:first-of-type{
+  background-color: var(--base3);
 }
 
 div#classTable>div>a{
