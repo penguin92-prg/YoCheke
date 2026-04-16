@@ -27,11 +27,11 @@ header{
   justify-content: space-between;
   gap: 0;
 
-  width: calc(100% - 3rem * 2);
+  width: calc(100% - 4rem * 2);
   height: 10rem;
 
   margin: 0;
-  padding: 0 3rem;
+  padding: 0 4rem;
 
   background-color: #ffffff88;
 
@@ -150,6 +150,7 @@ div#mainWindow{
   display: grid;
   grid-template:
     "term term" 5rem
+    "class aa" 1fr
     "class others" 1fr
     / 1fr 1fr;
   gap: 2rem;
@@ -395,8 +396,14 @@ div#classTable>div.classTableColumn>div>p{
 div#classTable>div.classTableColumn>div:first-of-type{
   background-color: var(--base3);
 }
+div#classTable>div.classTableColumn>div:not(:first-of-type){
+  background-color: var(--base2);
+}
+div#classTable>div.classTableColumn>div:not(:first-of-type):has(a){
+  background-color: var(--blue5);
+}
 
-div#classTable>div>a{
+div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
   display: -webkit-box;
 
   width: calc(100% - 1rem * 2);
@@ -424,6 +431,97 @@ div#classTable>div>a{
 /* ============================================================ */
 /* ============================================================ */
 
+div#classIntensiveView{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+
+  width: calc(100% - 2rem * 2);
+  height: calc(100% - 1rem * 2);
+
+  margin: 0;
+  padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
+}
+
+div#classIntensiveView>h3{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0 0 1rem 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#classIntensiveView>div#classIntensiveTable{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+
+  width: calc(100% - 1rem * 2);
+  height: fit-content;
+
+  margin: 0;
+  padding: 1rem;
+
+  border: none;
+  border-radius: 2.5rem;
+}
+
+div#classIntensiveView>div#classIntensiveTable>div{
+  display: block;
+
+  width: calc(100% - 1rem * 2);
+  height: fit-content;
+
+  margin: 0;
+  padding: 0 1rem;
+
+  background-color: var(--base2);
+}
+
+div#classIntensiveView>div#classIntensiveTable>div>p{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+
 div#checkBtnContainer{
   display: flex;
   flex-direction: column;
@@ -431,10 +529,10 @@ div#checkBtnContainer{
   align-items: flex-start;
   gap: 1rem;
 
-  width: fit-content;
-  height: auto;
+  width: calc(100% - 2rem * 2);
+  height: calc(100% - 1rem * 2);
 
-  margin: 1rem 0;
+  margin: 0;
   padding: 1rem 2rem;
 
   border: none;
