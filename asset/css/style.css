@@ -322,7 +322,7 @@ div#classView>div#classTable{
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 5rem repeat(5, 1fr);
-  gap: 0.125rem;
+  gap: 2px;
 
   width: 100%;
   height: calc(100% - 3rem - 1rem);
@@ -343,7 +343,7 @@ div#classView>div#classTable{
 div#classTable>div.classTableColumn{
   display: grid;
   grid-template-rows: 3rem repeat(6, 1fr);
-  gap: 1px;
+  gap: 2px;
 
   width: 100%;
   height: 100%;
@@ -365,6 +365,8 @@ div#classTable>div.classTableColumn>div{
 
   margin: 0;
   padding: 0;
+
+  border-radius: 0.5rem;
 }
 div#classTable>div#classTablePeriodName>div{
   background-color: var(--base3);
@@ -398,6 +400,10 @@ div#classTable>div.classTableColumn>div:first-of-type{
 }
 div#classTable>div.classTableColumn>div:not(:first-of-type){
   background-color: var(--base2);
+}
+div#classTable>div.classTableColumn>div:not(:first-of-type).active{
+  outline: var(--blue2) 2px solid;
+  outline-offset: -2px;
 }
 div#classTable>div.classTableColumn>div:not(:first-of-type):has(a){
   background-color: var(--blue5);
@@ -456,7 +462,7 @@ div#classIntensiveView>h3{
   width: fit-content;
   height: auto;
 
-  margin: 0 0 1rem 0;
+  margin: 0;
   padding: 0;
 
   color: var(--text1);
@@ -481,10 +487,11 @@ div#classIntensiveView>div#classIntensiveTable{
   height: fit-content;
 
   margin: 0;
-  padding: 1rem;
 
   border: none;
-  border-radius: 2.5rem;
+  border-radius: 1rem;
+
+  overflow: hidden;
 }
 
 div#classIntensiveView>div#classIntensiveTable>div{
@@ -494,7 +501,7 @@ div#classIntensiveView>div#classIntensiveTable>div{
   height: fit-content;
 
   margin: 0;
-  padding: 0 1rem;
+  padding: 1rem 2rem;
 
   background-color: var(--base2);
 }
@@ -513,7 +520,7 @@ div#classIntensiveView>div#classIntensiveTable>div>p{
   font-weight: 400;
   font-size: 1.5rem;
 
-  line-height: 4rem;
+  line-height: 3rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;

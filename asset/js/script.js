@@ -8,7 +8,7 @@ import {
   class2S2,
   class2A1,
   class2A2}
-from "./script-class.js";
+from "./script-classData.js";
 
 import {
   loadClass}
