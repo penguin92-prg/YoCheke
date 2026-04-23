@@ -497,7 +497,7 @@ div#classIntensiveView>div#classIntensiveTable::-webkit-scrollbar {
 div#classIntensiveView>div#classIntensiveTable>div{
   display: block;
 
-  width: calc(100% - 1rem * 2);
+  width: calc(100% - 2rem * 2);
   height: fit-content;
 
   margin: 0;
