@@ -481,12 +481,17 @@ div#classIntensiveView>div#classIntensiveTable{
   align-items: flex-start;
   gap: 1rem;
 
-  width: calc(100% - 1rem * 2);
+  width: 100%;
   height: 100%;
 
   margin: 0;
 
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+div#classIntensiveView>div#classIntensiveTable::-webkit-scrollbar {
+  display: none;
 }
 
 div#classIntensiveView>div#classIntensiveTable>div{
