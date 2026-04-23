@@ -440,7 +440,7 @@ div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
 div#classIntensiveView{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem;
 
@@ -448,7 +448,7 @@ div#classIntensiveView{
   height: calc(100% - 1rem * 2);
 
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 2rem;
 
   border: none;
   border-radius: 2.5rem;
@@ -481,17 +481,12 @@ div#classIntensiveView>div#classIntensiveTable{
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1rem;
 
   width: calc(100% - 1rem * 2);
   height: fit-content;
 
   margin: 0;
-
-  border: none;
-  border-radius: 1rem;
-
-  overflow: hidden;
 }
 
 div#classIntensiveView>div#classIntensiveTable>div{
@@ -502,6 +497,9 @@ div#classIntensiveView>div#classIntensiveTable>div{
 
   margin: 0;
   padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 1rem;
 
   background-color: var(--base2);
 }
