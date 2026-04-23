@@ -438,10 +438,8 @@ div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
 /* ============================================================ */
 
 div#classIntensiveView{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 3rem 1fr;
   gap: 1rem;
 
   width: calc(100% - 2rem * 2);
@@ -460,7 +458,7 @@ div#classIntensiveView>h3{
   display: block;
 
   width: fit-content;
-  height: auto;
+  height: 100%;
 
   margin: 0;
   padding: 0;
@@ -484,9 +482,11 @@ div#classIntensiveView>div#classIntensiveTable{
   gap: 1rem;
 
   width: calc(100% - 1rem * 2);
-  height: fit-content;
+  height: 100%;
 
   margin: 0;
+
+  overflow-y: scroll;
 }
 
 div#classIntensiveView>div#classIntensiveTable>div{
