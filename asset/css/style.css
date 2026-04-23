@@ -445,7 +445,7 @@ div#classIntensiveView{
   gap: 1rem;
 
   width: calc(100% - 2rem * 2);
-  height: calc(100% - 1rem * 2);
+  height: calc(100% - 2rem * 2);
 
   margin: 0;
   padding: 2rem;
