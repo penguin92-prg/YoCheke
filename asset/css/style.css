@@ -482,19 +482,19 @@ div#classIntensiveView>div#classIntensiveTable{
   align-items: flex-start;
   gap: 1rem;
 
-  width: 100%;
+  width: calc(100% - 2rem);
   height: 100%;
   min-height: 0;
 
   margin: 0;
 
   overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
 }
-div#classIntensiveView>div#classIntensiveTable::-webkit-scrollbar {
+/* div#classIntensiveView>div#classIntensiveTable::-webkit-scrollbar {
   display: none;
-}
+} */
 
 div#classIntensiveView>div#classIntensiveTable>div{
   display: block;
