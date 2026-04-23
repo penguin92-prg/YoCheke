@@ -439,7 +439,7 @@ div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
 
 div#classIntensiveView{
   display: grid;
-  grid-template-columns: 3rem 1fr;
+  grid-template-rows: 3rem 1fr;
   gap: 1rem;
 
   width: calc(100% - 2rem * 2);
