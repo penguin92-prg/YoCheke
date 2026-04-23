@@ -482,7 +482,7 @@ div#classIntensiveView>div#classIntensiveTable{
   align-items: flex-start;
   gap: 1rem;
 
-  width: calc(100% - 2rem);
+  width: calc(100% - 4rem);
   height: 100%;
   min-height: 0;
 
