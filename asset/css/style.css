@@ -466,6 +466,8 @@ div#classIntensiveView{
   border-radius: 2.5rem;
 
   background-color: var(--base1);
+
+  box-shadow: var(--shadowRaised);
 }
 
 div#classIntensiveView>h3{
@@ -597,6 +599,8 @@ div#checkBtnContainer{
   border-radius: 2.5rem;
 
   background-color: var(--base1);
+
+  box-shadow: var(--shadowRaised);
 }
 
 div#checkBtnContainer>h3{
