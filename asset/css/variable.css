@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 色 */
 :root{
   --base1: #ffffff;
   --base2: #f8f8fb;
@@ -20,4 +21,10 @@
   --text2: #666666;
   --text3: #999999;
   --text4: #bbbbbb;
+}
+
+/* box-shadow */
+:root{
+  --shadowRaised: 0.15rem 0.15rem 0.5rem var(--base3), -0.15rem -0.15rem 0.5rem var(--base1);
+  --shadowInset: inset 0.1rem 0.1rem 0.25rem var(--base3), inset -0.1rem -0.1rem 0.25rem var(--base1);
 }
