@@ -243,6 +243,7 @@ ul#termList>li{
   margin: 0;
   padding: 0 3rem;
 
+  outline: none;
   border: none;
   border-radius: 1.5rem;
 
@@ -263,9 +264,12 @@ ul#termList>li{
   cursor: pointer;
 }
 ul#termList>li.active{
-  background-color: var(--blue2);
+  outline: var(--blue2) 2px solid;
+  outline-offset: -2px;
 
-  color: var(--base1);
+  background-color: var(--base1);
+
+  color: var(--blue2);
 }
 ul#termList>li.active:hover{
   filter: brightness(1.2);
@@ -558,6 +562,8 @@ div#classIntensiveView>button#addClassIntensive{
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+
+  cursor: pointer;
 }
 
 /* ============================================================ */
