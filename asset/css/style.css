@@ -271,9 +271,6 @@ ul#termList>li.active{
 
   color: var(--blue2);
 }
-ul#termList>li.active:hover{
-  filter: brightness(1.2);
-}
 ul#termList>li:not(.active):hover{
   filter: brightness(0.9);
 }
@@ -371,6 +368,8 @@ div#classTable>div.classTableColumn>div{
   padding: 0;
 
   border-radius: 0.5rem;
+
+  cursor: pointer;
 }
 div#classTable>div#classTablePeriodName>div{
   background-color: var(--base3);
