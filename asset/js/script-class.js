@@ -100,11 +100,11 @@ window.addEventListener("load", function(){
 
 function parsePeriod(str) {
   const dayMap = {
-    "月": 1,
-    "火": 2,
-    "水": 3,
-    "木": 4,
-    "金": 5
+    "月": 0,
+    "火": 1,
+    "水": 2,
+    "木": 3,
+    "金": 4
   }
 
   const day = dayMap[str[0]]
@@ -131,7 +131,7 @@ function buildTimetable(data) {
       }
 
       // 曜限別配列に追加
-      table[day-1][period-1].push({
+      table[day][period-1].push({
         course
       });
     }
