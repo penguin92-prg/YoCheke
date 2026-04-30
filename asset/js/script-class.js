@@ -84,3 +84,15 @@ function classAddConfirm(){
   btnContainer.appendChild(btn1);
   btnContainer.appendChild(btn2);
 }
+
+window.addEventListener("load", function(){
+  fetch('https://my-worker.penguin92-prg.workers.dev')
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+});
+
