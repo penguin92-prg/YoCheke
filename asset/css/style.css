@@ -896,7 +896,13 @@ div#modal>button#modalToggle>span{
 
   background-color: var(--text3);
 
+  transition: all .15s;
+}
+div#modal.standby>button#modalToggle>span{
   clip-path: polygon(100% 60%, 100% 75%, 50% 50%, 0 75%, 0 60%, 50% 35%);
+}
+div#modal.ative>button#modalToggle>span{
+  clip-path: polygon(100% 40%, 100% 25%, 50% 50%, 0 25%, 0 40%, 50% 65%);
 }
 
 div#modal>button#modalClose{
