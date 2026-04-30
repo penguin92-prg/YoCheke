@@ -89,7 +89,8 @@ window.addEventListener("load", function(){
   .then(res => res.json())
   .then(res => {
     const table = buildTimetable(res.data);
-    loadClass(table);
+    
+    console.log(table);
   })
   .catch(err => {
     console.error(err)
