@@ -87,11 +87,55 @@ function classAddConfirm(){
 window.addEventListener("load", function(){
   fetch('https://my-worker.penguin92-prg.workers.dev')
   .then(res => res.json())
-  .then(data => {
-    console.log(data)
+  .then(res => {
+    const table = buildTimetable(res.data);
+    loadClass(table);
   })
   .catch(err => {
     console.error(err)
   })
 });
+
+
+function parsePeriod(str) {
+  const dayMap = {
+    "月": 1,
+    "火": 2,
+    "水": 3,
+    "木": 4,
+    "金": 5
+  }
+
+  const day = dayMap[str[0]]
+  const period = Number(str[1])
+
+  return { day, period }
+}
+
+function buildTimetable(data) {
+  // 5日×6限の空配列を作成
+  const table = Array.from({ length: 5 }, () =>
+    Array.from({ length: 6 }, () => [])
+  )
+
+  // 各授業を曜限別配列に追加
+  for (const course of data) {
+    for (const p of course.periods) {
+      // 曜限データの取得（曜日と時限を分けて）
+      const { day, period } = parsePeriod(p)
+
+      // データ欠損がある場合は飛ばす
+      if(!day || !period){
+        continue;
+      }
+
+      // 曜限別配列に追加
+      table[day-1][period-1].push({
+        course
+      });
+    }
+  }
+
+  return table
+}
 
