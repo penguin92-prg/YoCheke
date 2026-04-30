@@ -54,12 +54,25 @@ export function loadClass(data){
     document.getElementById("classIntensiveTable").appendChild(classIntensiveContainer);
   }
 
-  // 授業追加用モーダルの閉じるボタンの動作設定
+  // 授業追加用モーダル内のボタンの動作設定
   document.getElementById("modalClose").addEventListener("click", function(){
     document.getElementById("modal").classList.remove("active");
+    document.getElementById("modal").classList.remove("standby");
     document.querySelectorAll("#classTable [data-day]").forEach(cell => {
       cell.classList.remove("active");
     });
+  });
+  
+  document.getElementById("modalToggle").addEventListener("click", function(){
+    const modal = document.getElementById("modal");
+    if(modal.classList.contains("active")){
+      modal.classList.remove("active");
+      modal.classList.add("standby");
+    }
+    else if(modal.classList.contains("standby")){
+      modal.classList.add("active");
+      modal.classList.remove("standby");
+    }
   });
 }
 
