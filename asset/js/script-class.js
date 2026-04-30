@@ -88,8 +88,8 @@ window.addEventListener("load", function(){
   fetch('https://my-worker.penguin92-prg.workers.dev')
   .then(res => res.json())
   .then(res => {
+    console.log(res.data);
     const table = buildTimetable(res.data);
-    
     console.log(table);
   })
   .catch(err => {
