@@ -901,7 +901,7 @@ div#modal>button#modalToggle>span{
 div#modal.standby>button#modalToggle>span{
   clip-path: polygon(100% 60%, 100% 75%, 50% 50%, 0 75%, 0 60%, 50% 35%);
 }
-div#modal.ative>button#modalToggle>span{
+div#modal.active>button#modalToggle>span{
   clip-path: polygon(100% 40%, 100% 25%, 50% 50%, 0 25%, 0 40%, 50% 65%);
 }
 
