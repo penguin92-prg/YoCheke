@@ -833,7 +833,7 @@ footer{
   }
 }
 
-div#confirmModal{
+div#modal{
   position: absolute;
   inset: 0;
   z-index: 9999;
@@ -861,12 +861,12 @@ div#confirmModal{
 
   transform-origin: center bottom;
 }
-div#confirmModal.active{
+div#modal.active{
   display: flex;
   animation: animation-showModal ease-out 0.15s;
 }
 
-div#confirmModal>button#confirmModalClose{
+div#modal>button#modalClose{
   position: absolute;
   right: 0;
   top: 0;
@@ -890,7 +890,7 @@ div#confirmModal>button#confirmModalClose{
 
   cursor: pointer;
 }
-div#confirmModal>button#confirmModalClose>i{
+div#modal>button#modalClose>i{
   display: block;
 
   width: fit-content;
@@ -908,7 +908,7 @@ div#confirmModal>button#confirmModalClose>i{
   letter-spacing: 0;
 }
 
-div#confirmModal>p{
+div#modal>p{
   display: block;
 
   width: 100%;
@@ -928,7 +928,7 @@ div#confirmModal>p{
   letter-spacing: 0;
 }
 
-div#confirmModal>div#confirmBtnContainer{
+div#modal>div#modalBtnContainer{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -942,7 +942,7 @@ div#confirmModal>div#confirmBtnContainer{
   padding: 0;
 }
 
-div#confirmModal>div#confirmBtnContainer>button{
+div#modal>div#modalBtnContainer>button{
   display: block;
 
   width: fit-content;

@@ -64,18 +64,18 @@ export function loadClass(data){
 }
 
 function classAddConfirm(){
-  const dialog = document.getElementById("confirmModal");
+  const dialog = document.getElementById("modal");
   const message = dialog.querySelector("p");
-  const btnContainer = dialog.querySelector("#confirmBtnContainer");
+  const btnContainer = dialog.querySelector("#modalBtnContainer");
 
-  dialog.classList.add("active");
-  message.textContent = "この曜限に授業を登録しますか？"
+  dialog.classList.add("standby");
+  message.textContent = "この曜限の授業を見る"
 
   const btn1 = document.createElement("button");
   const btn2 = document.createElement("button");
   
-  btn1.setAttribute("id", "confirmBtn1");
-  btn2.setAttribute("id", "confirmBtn2");
+  btn1.setAttribute("id", "modalBtn1");
+  btn2.setAttribute("id", "modalBtn2");
   btn1.innerText = "はい";
   btn2.innerText = "いいえ";
 
