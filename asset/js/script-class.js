@@ -82,19 +82,7 @@ function classAddConfirm(){
   const btnContainer = dialog.querySelector("#modalBtnContainer");
 
   dialog.classList.add("standby");
-  message.textContent = "この曜限の授業を見る"
-
-  const btn1 = document.createElement("button");
-  const btn2 = document.createElement("button");
-  
-  btn1.setAttribute("id", "modalBtn1");
-  btn2.setAttribute("id", "modalBtn2");
-  btn1.innerText = "はい";
-  btn2.innerText = "いいえ";
-
-  btnContainer.innerHTML = "";
-  btnContainer.appendChild(btn1);
-  btnContainer.appendChild(btn2);
+  message.textContent = "この曜限の授業を見る" 
 }
 
 window.addEventListener("load", function(){

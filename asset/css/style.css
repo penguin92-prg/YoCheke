@@ -853,11 +853,13 @@ div#modal{
   transition: all .15s;
 }
 div#modal.standby{
-  top: calc(100dvh - 7rem);
+  top: calc(100dvh - 8rem);
 }
 div#modal.active{
   top: 50dvh;
 }
+
+/* ============================================================ */
 
 div#modal>button#modalToggle{
   position: absolute;
@@ -905,6 +907,8 @@ div#modal.active>button#modalToggle>span{
   clip-path: polygon(100% 40%, 100% 25%, 50% 50%, 0 25%, 0 40%, 50% 65%);
 }
 
+/* ============================================================ */
+
 div#modal>button#modalClose{
   position: absolute;
   right: 0;
@@ -947,6 +951,9 @@ div#modal>button#modalClose>i{
   letter-spacing: 0;
 }
 
+/* ============================================================ */
+/* ============================================================ */
+
 div#modal>p{
   display: block;
 
@@ -967,10 +974,72 @@ div#modal>p{
   letter-spacing: 0;
 }
 
-div#modal>div#modalBtnContainer{
+/* ============================================================ */
+/* ============================================================ */
+
+div#modalClassList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  overflow-y: scroll;
+}
+
+div#modalClassList>div.modalClass{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+
+  width: calc(100% - 2rem * 2);
+  height: auto;
+
+  margin: 0;
+  padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: var(--base2);
+}
+
+/* ============================================================ */
+
+div.modalClass>h2{
+  display: block;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+
+div.modalClass>div.modalClassDataContainer{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
 
@@ -981,31 +1050,58 @@ div#modal>div#modalBtnContainer{
   padding: 0;
 }
 
-div#modal>div#modalBtnContainer>button{
+div.modalClass>div.modalClassDataContainer>p{
   display: block;
 
   width: fit-content;
   height: fit-content;
 
   margin: 0;
-  padding: 0 2rem;
-
-  border: none;
-  border-radius: 2rem;
-
-  background-color: var(--base2);
-
-  box-shadow: var(--shadowRaised);
+  padding: 0;
 
   color: var(--text1);
   font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 600;
-  font-size: 1.75rem;
+  font-weight: 400;
+  font-size: 1.25rem;
 
-  line-height: 4rem;
+  line-height: 3rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+}
 
-  cursor: pointer;
+/* ============================================================ */
+
+div.modalClass>div.modalClassDataContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+}
+
+div.modalClass>div.modalClassAttrContainer>span{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
 }
