@@ -55,8 +55,8 @@ export function loadClass(data){
   }
 
   // 授業追加用モーダルの閉じるボタンの動作設定
-  document.getElementById("confirmModalClose").addEventListener("click", function(){
-    document.getElementById("confirmModal").classList.remove("active");
+  document.getElementById("modalClose").addEventListener("click", function(){
+    document.getElementById("modal").classList.remove("active");
     document.querySelectorAll("#classTable [data-day]").forEach(cell => {
       cell.classList.remove("active");
     });
