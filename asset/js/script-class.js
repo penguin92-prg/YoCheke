@@ -47,7 +47,6 @@ export function loadClass(data){
   if(data[5] == null) return;
 
   for(let classIntensive of data[5]){
-    console.log(classIntensive);
     let classIntensiveContainer = document.createElement("div");
     let classIntensiveName = document.createElement("p");
     classIntensiveName.innerText = classIntensive.name;
