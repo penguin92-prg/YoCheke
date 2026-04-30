@@ -822,8 +822,21 @@ footer{
 /* ============================================================ */
 /* ============================================================ */
 
-@keyframes animation-showModal{
+@keyframes animation-standbyModal{
   0%{
+
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animation-activeModal{
+  0%{
+    inset: 0;
     transform: translateY(100%);
     opacity: 0;
   }
@@ -861,9 +874,18 @@ div#modal{
 
   transform-origin: center bottom;
 }
+div#modal.standby{
+  display: flex;
+
+  top: calc(100dvh - 6rem);
+
+  margin: 0 auto;
+
+  animation: animation-standbyModal ease-out .15s
+}
 div#modal.active{
   display: flex;
-  animation: animation-showModal ease-out 0.15s;
+  animation: animation-activeModal ease-out .15s;
 }
 
 div#modal>button#modalClose{
