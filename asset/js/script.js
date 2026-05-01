@@ -153,9 +153,9 @@ function loadClass(registeredData){
   // 集中講義の授業内容を初期化
   document.getElementById("classIntensiveTable").innerHTML = "";
 
-  if(data[5] == null) return;
+  if(registeredData[5] == null) return;
 
-  for(let classIntensive of data[5]){
+  for(let classIntensive of registeredData[5]){
     let classIntensiveContainer = document.createElement("div");
     let classIntensiveName = document.createElement("p");
     classIntensiveName.innerText = classIntensive.name;
