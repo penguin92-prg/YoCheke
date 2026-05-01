@@ -142,7 +142,6 @@ function loadClass(registeredData){
           
           // クリックされた曜限の授業をシラバスデータから取得
           const class_of_clicked_period = filterByPeriod(ALL_SYLLABUS, dayIndex, periodIndex+1)
-          // showClassList(classes)
           console.log(class_of_clicked_period);
         });
         continue;
