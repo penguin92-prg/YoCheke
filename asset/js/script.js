@@ -1,6 +1,13 @@
 import {
-  loadClass}
-from "./script-class.js";
+  class1S1,
+  class1S2,
+  class1A1,
+  class1A2,
+  class2S1,
+  class2S2,
+  class2A1,
+  class2A2
+} from "script-classData.js"
 
 // ============================================================
 // ============================================================
