@@ -14,6 +14,15 @@ import {
 // ============================================================
 
 let ALL_SYLLABUS = [];
+let SYLLABUS_PERIOD = [];
+
+const NUM_TO_DAY = {
+  1: "月",
+  2: "火",
+  3: "水",
+  4: "木",
+  5: "金"
+};
 
 // ============================================================
 // ============================================================
@@ -61,7 +70,7 @@ window.addEventListener("load", function(){
     ALL_SYLLABUS = res.data;
 
     // 曜限別データに変換
-    const table = buildTimetable(res.data);
+    SYLLABUS_PERIOD = buildTimetable(res.data);
   })
   .catch(err => {
     console.error(err)
@@ -139,10 +148,11 @@ function loadClass(registeredData){
           document.querySelectorAll("#classTable [data-day]").forEach(cell => {
             cell.classList.remove("active");
           });
-          
-          // クリックされた曜限の授業をシラバスデータから取得
-          const class_of_clicked_period = filterByPeriod(ALL_SYLLABUS, dayIndex, periodIndex+1)
-          console.log(class_of_clicked_period);
+
+          // モーダルに表示
+          const filteredCourse = filterByPeriod(ALL_SYLLABUS, Number(this.dataset.day), Number(this.dataset.period));
+          const modalMessage = `授業を見る｜${NUM_TO_DAY[this.dataset.day]}${this.dataset.period}`;
+          modalActivate(filteredCourse, modalMessage);
         });
         continue;
       }
@@ -169,6 +179,11 @@ function loadClass(registeredData){
     document.getElementById("classIntensiveTable").appendChild(classIntensiveContainer);
   }
 
+  document.getElementById("addClassIntensive").addEventListener("click", function(){
+    const classOfClickedPeriod =  filterByPeriod(ALL_SYLLABUS, null, null);
+    console.log(classOfClickedPeriod);
+  });
+
   // 授業追加用モーダル内のボタンの動作設定
   document.getElementById("modalClose").addEventListener("click", function(){
     document.getElementById("modal").classList.remove("active");
@@ -191,19 +206,11 @@ function loadClass(registeredData){
   });
 }
 
-function classAddConfirm(){
-  const dialog = document.getElementById("modal");
-  const message = dialog.querySelector("p");
-  const btnContainer = dialog.querySelector("#modalBtnContainer");
+// ============================================================
+// ============================================================
+// ============================================================
 
-  dialog.classList.add("standby");
-  message.textContent = "この曜限の授業を見る" 
-}
-
-window.addEventListener("load", function(){
-});
-
-
+// 曜限の生データから曜日と時限を分離取得
 function parsePeriod(str) {
   const dayMap = {
     "月": 1,
@@ -213,34 +220,43 @@ function parsePeriod(str) {
     "金": 5
   }
 
-  const day = dayMap[str[0]]
-  const period = Number(str[1])
-
-  return { day, period }
+  if(str == "集中"){
+    return {day: null, period: null, intensive: true};
+  }
+  else{  
+    return {day: dayMap[str[0]], period: Number(str[1]), intensive: false}
+  }
 }
+
+// ============================================================
+// ============================================================
+// ============================================================
 
 // シラバスデータを曜限別に配列へ格納
 function buildTimetable(data) {
-  // 5日×6限の空配列を作成
+  // 5日×6限+集中講義の空配列を作成
   const table = Array.from({ length: 5 }, () =>
     Array.from({ length: 6 }, () => [])
-  )
+  );
+  table.push([]);
 
   // 各授業を曜限別配列に追加
   for (const course of data) {
     for (const p of course.periods) {
       // 曜限データの取得（曜日と時限を分けて）
-      const { day, period } = parsePeriod(p)
+      const {day, period, intensive} = parsePeriod(p)
 
       // データ欠損がある場合は飛ばす
-      if(!day || !period){
+      if(intensive){
+        table[5].push(course);
+      }
+      else if(!day || !period){
         continue;
       }
-
-      // 曜限別配列に追加
-      table[day-1][period-1].push({
-        course
-      });
+      else{
+        // 曜限別配列に追加
+        table[day-1][period-1].push(course);
+      }
     }
   }
 
@@ -248,14 +264,49 @@ function buildTimetable(data) {
 }
 
 // ============================================================
+// ============================================================
+// ============================================================
 
 // 指定した曜限の授業をシラバスデータから抽出
 function filterByPeriod(allCourses, day, period) {
-  const dayMap = ["月","火","水","木","金"]
+  return allCourses.filter(course => {
+    return course.periods.some(p => {
+      const parsed = parsePeriod(p);
 
-  return allCourses.filter(course =>
-    course.periods.some(p =>
-      p === `${dayMap[day]}${period}`
-    )
-  )
+      // 集中講義のみ場合分け
+      if (parsed.intensive) {
+        return day === null;
+      }
+
+      return parsed.day === day && parsed.period === period;
+    });
+  });
+}
+
+// ============================================================
+// ============================================================
+// ============================================================
+
+// モーダルに授業一覧を表示
+function modalActivate(classList, header){
+  const modal = document.getElementById("modal");
+  modal.querySelector("p").innerText = header;
+  modal.querySelector("#modalClassList").innerHTML = "";
+
+  // クリックされた曜限の授業をシラバスデータから取得
+  classList.forEach(item => {
+    const itemTemplate = document.getElementById("template_modalClass");
+    const itemClone = itemTemplate.content.cloneNode(true);
+
+    itemClone.querySelector("h2").innerText = item.title;
+    itemClone.querySelector(".modalClassDataContainer>p:nth-of-type(1)").innerText = item.lecturer;
+    itemClone.querySelector(".modalClassDataContainer>p:nth-of-type(2)").innerText = String(item.periods).replace(",", " ･ ");
+
+    modal.querySelector("#modalClassList").appendChild(itemClone);
+  });
+
+  // モーダルを表示
+  if(!modal.classList.contains("active")){
+    modal.classList.add("standby");
+  }
 }

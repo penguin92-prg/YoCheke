@@ -831,12 +831,13 @@ div#modal{
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
 
   width: calc(60% - 5rem * 2);
   height: fit-content;
+  max-height: calc(50dvh - 3rem - 2rem);
 
   margin: auto;
   padding: 3rem 5rem 2rem 5rem;
@@ -980,7 +981,7 @@ div#modal>p{
 div#modalClassList{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 2rem;
 
@@ -1010,15 +1011,20 @@ div#modalClassList>div.modalClass{
   border-radius: 1rem;
 
   background-color: var(--base2);
+
+  cursor: pointer;
+}
+div#modalClassList>div.modalClass:hover{
+  background-color: var(--base3);
 }
 
 /* ============================================================ */
 
-div.modalClass>h2{
+div#modalClassList>div.modalClass>h2{
   display: block;
 
   width: 100%;
-  height: fit-content;
+  height: 3rem;
 
   margin: 0;
   padding: 0;
@@ -1032,11 +1038,15 @@ div.modalClass>h2{
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* ============================================================ */
 
-div.modalClass>div.modalClassDataContainer{
+div#modalClassList>div.modalClass>div.modalClassDataContainer{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1050,7 +1060,7 @@ div.modalClass>div.modalClassDataContainer{
   padding: 0;
 }
 
-div.modalClass>div.modalClassDataContainer>p{
+div#modalClassList>div.modalClass>div.modalClassDataContainer>p{
   display: block;
 
   width: fit-content;
@@ -1072,7 +1082,7 @@ div.modalClass>div.modalClassDataContainer>p{
 
 /* ============================================================ */
 
-div.modalClass>div.modalClassDataContainer{
+div#modalClassList>div.modalClass>div.modalClassDataContainer{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1086,7 +1096,7 @@ div.modalClass>div.modalClassDataContainer{
   padding: 0;
 }
 
-div.modalClass>div.modalClassAttrContainer>span{
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>p{
   display: block;
 
   width: fit-content;
@@ -1101,6 +1111,47 @@ div.modalClass>div.modalClassAttrContainer>span{
   font-size: 1.25rem;
 
   line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+
+div#modalClassList>div.modalClass>div.modalClassAttrContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0 1rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: var(--base4);
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  line-height: 2rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;

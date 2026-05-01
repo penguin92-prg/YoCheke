@@ -261,34 +261,36 @@
     <!-- ================================================== -->
 
     <div id="modal">
+      <!-- モーダル出現/待機ボタン -->
       <button id="modalToggle">
         <span></span>
       </button>
+
+      <!-- モーダル閉ボタン -->
       <button id="modalClose">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <p></p>
-      <template id="template_modalClassList">
-        <div id="modalClassList">
-          <div class="modalClassListItem">
-            <h2></h2>
-          </div>
-        </div>
-      </template>
 
+      <!-- コメント -->
+      <p></p>
+
+      <!-- 授業リスト -->
       <div id="modalClassList">
+      </div>
+
+      <template id="template_modalClass">
         <div class="modalClass">
-          <h2>授業タイトル</h2>
+          <h2></h2>
           <div class="modalClassDataContainer">
-            <p>講義者名</p>
-            <p>曜限</p>
+            <p></p>
+            <p></p>
           </div>
           <div class="modalClassAttrContainer">
             <span class="modalClassCat">基礎科目</span>
-            <span>数理科学</span>
+            <span class="modalClassCat">数理科学</span>
           </div>
         </div>
-      </div>
+      </template>
     </div>
 
     <!-- ================================================== -->
