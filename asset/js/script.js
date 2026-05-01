@@ -22,10 +22,13 @@ let ALL_SYLLABUS = [];
 window.addEventListener("load", function(){
   console.log("script.js");
   
+  // ============================================================
+  // ============================================================
+  // ============================================================
+  
   // Cookie使用許諾確認
   // document.cookie = "cookie=;max-age=0";
   // console.log(document.cookie);
-
   if(document.cookie.indexOf("cookie=true") != -1){
     console.log("Cookieの使用が許可されています");
     document.cookie = "cookie=true;max-age=" + String(60*60*2);
@@ -56,7 +59,7 @@ window.addEventListener("load", function(){
   .then(res => {
     // シラバスデータをグローバル化
     ALL_SYLLABUS = res.data;
-    
+
     // 曜限別データに変換
     const table = buildTimetable(res.data);
   })
@@ -125,8 +128,10 @@ function loadClass(registeredData){
       );
       if(!cell) continue;
 
-      // 曜限の授業データ取得
+      // 各曜限の授業データ取得
       const periodClass = registeredData[dayIndex][periodIndex];
+      
+      // 空き曜限がクリックされたときの動作設定
       if(Object.keys(periodClass).length === 0){
         cell.addEventListener("click", function(){
           // クリックされた曜限以外の選択を解除
@@ -137,8 +142,8 @@ function loadClass(registeredData){
           
           // クリックされた曜限の授業をシラバスデータから取得
           const class_of_clicked_period = filterByPeriod(ALL_SYLLABUS, dayIndex, periodIndex+1)
-          showClassList(classes)
-          console.log(classes);
+          // showClassList(classes)
+          console.log(class_of_clicked_period);
         });
         continue;
       }
