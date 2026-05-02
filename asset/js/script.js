@@ -71,6 +71,7 @@ window.addEventListener("load", function(){
 
     // 曜限別データに変換
     SYLLABUS_PERIOD = buildTimetable(res.data);
+    console.log(res.data);
   })
   .catch(err => {
     console.error(err)
@@ -301,6 +302,34 @@ function modalActivate(classList, header){
     itemClone.querySelector("h2").innerText = item.title;
     itemClone.querySelector(".modalClassDataContainer>p:nth-of-type(1)").innerText = item.lecturer;
     itemClone.querySelector(".modalClassDataContainer>p:nth-of-type(2)").innerText = String(item.periods).replace(",", " ･ ");
+    itemClone.querySelector(".modalClassDetail").innerText = item.detail;
+
+    const itemAttr1 = itemClone.querySelector(".modalClassAttrContainer>span:nth-of-type(1)");
+    const itemAttr2 = itemClone.querySelector(".modalClassAttrContainer>span:nth-of-type(2)");
+    itemAttr1.innerText = item.type + "科目";
+    switch(item.type){
+    case "基礎":
+      itemAttr1.classList.add("basic");
+      break;
+    case "総合":
+      itemAttr1.classList.add("comprehensive");
+      break;
+    case "主題":
+      itemAttr1.classList.add("subjective");
+      break;
+    case "展開":
+      itemAttr1.classList.add("expansive");
+      break;
+    case "要求":
+      itemAttr1.classList.add("required");
+      break;
+    }
+    itemClone.querySelector(".modalClassAttrContainer>span:nth-of-type(2)").innerText = item.category;
+
+    itemClone.firstElementChild.addEventListener("click", function(){
+      console.log("aaa");
+      this.classList.toggle("active");
+    });
 
     modal.querySelector("#modalClassList").appendChild(itemClone);
   });

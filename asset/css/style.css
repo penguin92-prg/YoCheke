@@ -1156,3 +1156,50 @@ div#modalClassList>div.modalClass>div.modalClassAttrContainer>span{
   text-decoration: none;
   letter-spacing: 0;
 }
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.basic{
+  background-color: var(--red2);
+}
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.comprehensive{
+  background-color: var(--blue5);
+}
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.subjective{
+  background-color: var(--yellow1);
+}
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.expansive{
+  background-color: var(--green1);
+}
+div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.required{
+  background-color: var(--purple1);
+}
+
+/* ============================================================ */
+
+div#modalClassList>div.modalClass>p.modalClassDetail{
+  display: grid;
+  grid-template-rows: 0;
+  gap: 0;
+
+  width: 100%;
+  height: auto;
+
+  margin: 1rem 0 0 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  line-height: 2rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  transition: all .15s;
+
+  overflow: hidden;
+}
+
+div#modalClassList>div.modalClass.active>p.modalClassDetail{
+  grid-template-rows: 1fr;
+}
