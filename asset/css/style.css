@@ -450,7 +450,7 @@ div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
 /* ============================================================ */
 /* ============================================================ */
 
-div#classIntensiveView{
+div#courseIntensiveView{
   display: grid;
   grid-template-rows: 3rem 1fr;
   gap: 1rem;
@@ -470,7 +470,7 @@ div#classIntensiveView{
   box-shadow: var(--shadowRaised);
 }
 
-div#classIntensiveView>h3{
+div#courseIntensiveView>h3{
   display: block;
 
   width: fit-content;
@@ -490,7 +490,7 @@ div#classIntensiveView>h3{
   letter-spacing: 0;
 }
 
-div#classIntensiveView>div#classIntensiveTable{
+div#courseIntensiveView>div#courseIntensiveTable{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -507,11 +507,11 @@ div#classIntensiveView>div#classIntensiveTable{
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-div#classIntensiveView>div#classIntensiveTable::-webkit-scrollbar {
+div#courseIntensiveView>div#courseIntensiveTable::-webkit-scrollbar {
   display: none;
 }
 
-div#classIntensiveView>div#classIntensiveTable>div{
+div#courseIntensiveView>div#courseIntensiveTable>div{
   display: block;
 
   width: calc(100% - 2rem * 2);
@@ -526,7 +526,7 @@ div#classIntensiveView>div#classIntensiveTable>div{
   background-color: var(--base2);
 }
 
-div#classIntensiveView>div#classIntensiveTable>div>p{
+div#courseIntensiveView>div#courseIntensiveTable>div>p{
   display: block;
 
   width: fit-content;
@@ -546,7 +546,7 @@ div#classIntensiveView>div#classIntensiveTable>div>p{
   letter-spacing: 0;
 }
 
-div#classIntensiveView>button#addClassIntensive{
+div#courseIntensiveView>button#addCourseIntensive{
   display: flex;
   flex-direction: row;
   justify-content: center;
