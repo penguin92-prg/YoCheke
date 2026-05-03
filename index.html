@@ -69,7 +69,7 @@
 
     <div id="mainWindow">
       <div id="term">
-        <h3>授業登録するタームを選択</h3>
+        <h3>タームを選択</h3>
         <ul id="termList">
           <li class="active" data-value="1S1">1年-S1</li>
           <li data-value="1S2">1年-S2</li>
@@ -86,7 +86,7 @@
       <!-- ================================================== -->
 
       <div id="classView">
-        <h3>登録済みの授業</h3>
+        <h3>登録済みの講義</h3>
         <div id="classTable">
           <div id="classTablePeriodName" class="classTableColumn">
             <div>
@@ -210,20 +210,20 @@
 
       <!-- ================================================== -->
 
-      <div id="classIntensiveView">
-        <h3>登録済みの授業（集中）</h3>
-        <div id="classIntensiveTable">
+      <div id="courseIntensiveView">
+        <h3>登録済みの講義（集中）</h3>
+        <div id="courseIntensiveTable">
         </div>
-        <button id="addClassIntensive">
+        <button id="addCourseIntensive">
           <i class="fa-solid fa-plus"></i>
-          授業 (集中) を追加する
+          講義 (集中) を追加する
         </button>
       </div>
 
       <!-- ================================================== -->
 
       <div id="checkBtnContainer">
-        <h3>登録した授業内容で</h3>
+        <h3>登録した講義内容で</h3>
         <button id="shinfuriCheck">
           進振り要件を満たすかチェック
           <i class="fa-solid fa-angles-right"></i>
@@ -240,8 +240,8 @@
     <!-- ================================================== -->
 
     <div id="cookieConfirm">
-      <h3>Cookie の使用について</h3>
-      <p>このサイトでは Cookie を使用したデータ操作を行っています。Cookie で取得した情報は、履修要件の確認という本サイトの目的にのみ使用します。</p>
+      <h3>ユーザーデータの使用について</h3>
+      <p>このサイトでは Cookie と LocalStorage を使用したデータ操作を行っています。Cookie と LocalStorageで取得した情報は、履修要件の確認という本サイトの目的にのみ使用します。</p>
       <div>
         <button id="cookie-agree">同意する</button>
         <button id="cookie-disagree">拒否する</button>
