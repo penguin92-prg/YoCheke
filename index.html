@@ -274,22 +274,25 @@
       <!-- コメント -->
       <p></p>
 
-      <!-- 授業リスト -->
-      <div id="modalClassList">
+      <!-- 講義リスト -->
+      <div id="modalCourseList">
       </div>
 
-      <template id="template_modalClass">
-        <div class="modalClass">
-          <h2 class="modalClassTitle"></h2>
-          <div class="modalClassDataContainer">
-            <p></p>
-            <p></p>
+      <template id="template_modalCourse">
+        <div class="modalCourse">
+          <div class="modalCourseHeader">
+            <h2 class="modalCourseTitle"></h2>
+            <button class="modalCourseAdd">追加</button>
           </div>
-          <div class="modalClassAttrContainer">
-            <span class="modalClassCat"></span>
-            <span class="modalClassCat"></span>
+          <div>
+            <p class="modalCourseLecturer"></p>
+            <p class="modalCoursePeriod"></p>
           </div>
-          <p class="modalClassDetail"></p>
+          <div>
+            <span class="modalCourseType"></span>
+            <span class="modalCourseCategory"></span>
+          </div>
+          <p class="modalCourseDetail"></p>
         </div>
       </template>
     </div>

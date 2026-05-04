@@ -978,7 +978,7 @@ div#modal>p{
 /* ============================================================ */
 /* ============================================================ */
 
-div#modalClassList{
+div#modalCourseList{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -994,7 +994,7 @@ div#modalClassList{
   overflow-y: scroll;
 }
 
-div#modalClassList>div.modalClass{
+div#modalCourseList>div.modalCourse{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1011,16 +1011,28 @@ div#modalClassList>div.modalClass{
   border-radius: 1rem;
 
   background-color: var(--base2);
-
-  cursor: pointer;
 }
-div#modalClassList>div.modalClass:hover{
+div#modalCourseList>div.modalCourse:hover{
   background-color: var(--base3);
 }
 
 /* ============================================================ */
 
-div#modalClassList>div.modalClass>h2{
+div#modalCourseList>div.modalCourse>div.modalCourseHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#modalCourseList>div.modalCourse>div.modalCourseHeader>h2.modalCourseTitle{
   display: block;
 
   width: 100%;
@@ -1044,9 +1056,41 @@ div#modalClassList>div.modalClass>h2{
   text-overflow: ellipsis;
 }
 
+div#modalCourseList>div.modalCourse>div.modalCourseHeader>button{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0 1rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: var(--base1);
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+  
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:hover{
+  background-color: var(--base2);
+}
+
 /* ============================================================ */
 
-div#modalClassList>div.modalClass>div.modalClassDataContainer{
+div#modalCourseList>div.modalCourse>div{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1060,7 +1104,7 @@ div#modalClassList>div.modalClass>div.modalClassDataContainer{
   padding: 0;
 }
 
-div#modalClassList>div.modalClass>div.modalClassDataContainer>p{
+div#modalCourseList>div.modalCourse>div>p{
   display: block;
 
   width: fit-content;
@@ -1082,57 +1126,7 @@ div#modalClassList>div.modalClass>div.modalClassDataContainer>p{
 
 /* ============================================================ */
 
-div#modalClassList>div.modalClass>div.modalClassDataContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2rem;
-
-  width: 100%;
-  height: fit-content;
-
-  margin: 0;
-  padding: 0;
-}
-
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>p{
-  display: block;
-
-  width: fit-content;
-  height: fit-content;
-
-  margin: 0;
-  padding: 0;
-
-  color: var(--text1);
-  font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 400;
-  font-size: 1.25rem;
-
-  line-height: 3rem;
-  text-align: justify;
-  text-decoration: none;
-  letter-spacing: 0;
-}
-
-/* ============================================================ */
-
-div#modalClassList>div.modalClass>div.modalClassAttrContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5rem;
-
-  width: 100%;
-  height: fit-content;
-
-  margin: 0;
-  padding: 0;
-}
-
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span{
+div#modalCourseList>div.modalCourse>div>span{
   display: block;
 
   width: fit-content;
@@ -1156,25 +1150,25 @@ div#modalClassList>div.modalClass>div.modalClassAttrContainer>span{
   text-decoration: none;
   letter-spacing: 0;
 }
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.basic{
+div#modalCourseList>div.modalCourse>div>span.basic{
   background-color: var(--red2);
 }
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.comprehensive{
+div#modalCourseList>div.modalCourse>div>span.comprehensive{
   background-color: var(--blue5);
 }
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.subjective{
+div#modalCourseList>div.modalCourse>div>span.subjective{
   background-color: var(--yellow1);
 }
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.expansive{
+div#modalCourseList>div.modalCourse>div>span.expansive{
   background-color: var(--green1);
 }
-div#modalClassList>div.modalClass>div.modalClassAttrContainer>span.required{
+div#modalCourseList>div.modalCourse>div>span.required{
   background-color: var(--purple1);
 }
 
 /* ============================================================ */
 
-div#modalClassList>div.modalClass>p.modalClassDetail{
+div#modalCourseList>div.modalCourse>p.modalCourseDetail{
   display: grid;
   grid-template-rows: 0;
   gap: 0;
@@ -1200,6 +1194,6 @@ div#modalClassList>div.modalClass>p.modalClassDetail{
   overflow: hidden;
 }
 
-div#modalClassList>div.modalClass.active>p.modalClassDetail{
+div#modalCourseList>div.modalCourse.active>p.modalCourseDetail{
   grid-template-rows: 1fr;
 }

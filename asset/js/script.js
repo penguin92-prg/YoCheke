@@ -46,6 +46,12 @@ const NUM_TO_DAY = {
   5: "金"
 };
 
+/**
+ * ターム別の登録済み講義データ
+ * @type {WeeklyTable}
+ */
+let registered_course_1s1;
+
 // ============================================================
 // ============================================================
 // ============================================================
@@ -104,7 +110,8 @@ window.addEventListener("load", function(){
   // ============================================================
 
   // 登録済み講義データをLocalStorageから取得
-  localStorage.setItem("courseRegistered", JSON.stringify(course1S1))
+  registered_course_1s1 = JSON.parse(localStorage.getItem("registered_course_1s1"));
+  console.log(registered_course_1s1);
 
   // ============================================================
   // ============================================================
@@ -116,7 +123,7 @@ window.addEventListener("load", function(){
    * @type {Record<string, Course[][] | null>}
    */
   const courseDataMap = {
-    "1S1": course1S1,
+    "1S1": registered_course_1s1,
     "1S2": null,
     "1A1": null,
     "1A2": null,
@@ -142,7 +149,7 @@ window.addEventListener("load", function(){
   // ============================================================
 
   // 登録済みの講義データの反映
-  loadCourse(course1S1);
+  loadCourse(registered_course_1s1);
 
   // 登録済みの集中講義データの反映
   loadCourseIntensive(course1S1);
@@ -181,6 +188,8 @@ window.addEventListener("load", function(){
  * @param {Course[][]} registered_data 登録済み講義データ
  */
 function loadCourse(registered_data){
+
+  console.log(registered_data);
   
   // 各曜限セルの初期化
   document.querySelectorAll("#classTable [data-day]").forEach(cell => {
@@ -200,9 +209,12 @@ function loadCourse(registered_data){
       // 各曜限の授業データ取得
       const course_of_clicked_period = registered_data[day_index][period_index];
       
+      const newCell = cell.cloneNode(true);
+      cell.replaceWith(newCell);
+      
       // 空き曜限がクリックされたときの動作設定
       if(Object.keys(course_of_clicked_period).length === 0){
-        cell.addEventListener("click", function(){
+        newCell.addEventListener("click", function(){
           // クリックされた曜限以外の選択を解除
           document.querySelectorAll("#classTable [data-day]").forEach(cell => {
             cell.classList.remove("active");
@@ -216,11 +228,19 @@ function loadCourse(registered_data){
         });
         continue;
       }
+      else{
+        newCell.addEventListener("click", function(){
+          console.log(JSON.parse(this.querySelector("a").getAttribute("course")));
+          registered_data[this.dataset.day-1][this.dataset.period-1] = {};
+          loadCourse(registered_data);
+        });
+      }
 
       // 曜限の授業データをセルに書き込み
       const el = document.createElement("a");
-      el.innerText = course_of_clicked_period.name;
-      cell.appendChild(el);
+      el.setAttribute("course", JSON.stringify(course_of_clicked_period));
+      el.innerText = course_of_clicked_period.title;
+      newCell.appendChild(el);
     }
   }
 }
@@ -362,19 +382,32 @@ function filterByPeriod(all_course, day, period) {
 function modalActivate(all_course, message){
   const modal = document.getElementById("modal");
   modal.querySelector("p").innerText = message;
-  modal.querySelector("#modalClassList").innerHTML = "";
+  modal.querySelector("#modalCourseList").innerHTML = "";
 
   // クリックされた曜限の授業を講義データから取得
   all_course.forEach(course => {
-    const item_clone = document.getElementById("template_modalClass").content.cloneNode(true);
+    const item_clone = document.getElementById("template_modalCourse").content.cloneNode(true);
 
-    item_clone.querySelector("h2").innerText = course.title;
-    item_clone.querySelector(".modalClassDataContainer>p:nth-of-type(1)").innerText = course.lecturer;
-    item_clone.querySelector(".modalClassDataContainer>p:nth-of-type(2)").innerText = String(course.periods).replace(",", " ･ ");
-    item_clone.querySelector(".modalClassDetail").innerText = course.detail;
+    item_clone.firstElementChild.setAttribute("data-course", JSON.stringify(course));
+    item_clone.querySelector(".modalCourseTitle").innerText = course.title;
+    item_clone.querySelector(".modalCourseLecturer").innerText = course.lecturer;
+    item_clone.querySelector(".modalCoursePeriod").innerText = String(course.periods).replace(",", " ･ ");
+    item_clone.querySelector(".modalCourseDetail").innerText = course.detail;
+    item_clone.querySelector(".modalCourseAdd").addEventListener("click", function(){
+      const adding_course = JSON.parse(this.parentElement.parentElement.dataset.course);
+      if(adding_course.periods.length >= 2){
+        console.log("wow! more than two classes per week!");
+      }
+      else{
+        const {day, period} = parsePeriod(adding_course.periods[0]);
+        registered_course_1s1[Number(day)-1][Number(period)-1] = adding_course;
+        localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
+        loadCourse(registered_course_1s1);
+      }
+    });
 
-    const item_attr1 = item_clone.querySelector(".modalClassAttrContainer>span:nth-of-type(1)");
-    const item_attr2 = item_clone.querySelector(".modalClassAttrContainer>span:nth-of-type(2)");
+    const item_attr1 = item_clone.querySelector(".modalCourseType");
+    const item_attr2 = item_clone.querySelector(".modalCourseCategory");
     item_attr1.innerText = course.type + "科目";
     switch(course.type){
     case "基礎":
@@ -399,7 +432,7 @@ function modalActivate(all_course, message){
       this.classList.toggle("active");
     });
 
-    modal.querySelector("#modalClassList").appendChild(item_clone);
+    modal.querySelector("#modalCourseList").appendChild(item_clone);
   });
 
   // モーダルを表示
