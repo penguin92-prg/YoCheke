@@ -162,18 +162,6 @@ window.addEventListener("load", function(){
       cell.classList.remove("active");
     });
   });
-  
-  document.getElementById("modalToggle").addEventListener("click", function(){
-    const modal = document.getElementById("modal");
-    if(modal.classList.contains("active")){
-      modal.classList.remove("active");
-      modal.classList.add("standby");
-    }
-    else if(modal.classList.contains("standby")){
-      modal.classList.add("active");
-      modal.classList.remove("standby");
-    }
-  });
 });
 
 
@@ -212,8 +200,8 @@ function loadCourse(registered_data){
       const newCell = cell.cloneNode(true);
       cell.replaceWith(newCell);
       
-      // 空き曜限がクリックされたときの動作設定
       if(Object.keys(course_of_clicked_period).length === 0){
+        // 空き曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
           // クリックされた曜限以外の選択を解除
           document.querySelectorAll("#classTable [data-day]").forEach(cell => {
@@ -229,10 +217,13 @@ function loadCourse(registered_data){
         continue;
       }
       else{
+        // 登録済み曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
           console.log(JSON.parse(this.querySelector("a").getAttribute("course")));
-          registered_data[this.dataset.day-1][this.dataset.period-1] = {};
-          loadCourse(registered_data);
+          if(confirm("選択された講義を削除しますか?")){
+            registered_data[this.dataset.day-1][this.dataset.period-1] = {};
+            loadCourse(registered_data);
+          }
         });
       }
 
@@ -436,7 +427,5 @@ function modalActivate(all_course, message){
   });
 
   // モーダルを表示
-  if(!modal.classList.contains("active")){
-    modal.classList.add("standby");
-  }
+  modal.classList.add("active");
 }

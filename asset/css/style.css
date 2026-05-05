@@ -824,9 +824,8 @@ footer{
 
 div#modal{
   position: absolute;
-  top: 100dvh;
-  left: 0;
-  right: 0;
+  top: 12rem;
+  right: -60%;
   z-index: 9999;
 
   display: flex;
@@ -835,17 +834,17 @@ div#modal{
   align-items: center;
   gap: 2rem;
 
-  width: calc(60% - 5rem * 2);
-  height: fit-content;
-  max-height: calc(50dvh - 3rem - 2rem);
+  width: calc(50% - 5rem * 2);
+  height: calc(100dvh - 10rem - 5rem - 2rem * 2 - 3rem - 2rem);
 
   margin: auto;
   padding: 3rem 5rem 2rem 5rem;
 
   border: none;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 2rem 0 0 2rem;
   
-  background-color: var(--base1);
+  background-color: #ffffff88;
+  backdrop-filter: blur(0.5rem);
 
   box-shadow: var(--shadowRaised);
 
@@ -853,59 +852,8 @@ div#modal{
 
   transition: all .15s;
 }
-div#modal.standby{
-  top: calc(100dvh - 8rem);
-}
 div#modal.active{
-  top: 50dvh;
-}
-
-/* ============================================================ */
-
-div#modal>button#modalToggle{
-  position: absolute;
-  top: 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-
-  width: 100%;
-  height: 3rem;
-
-  margin: 0;
-  padding: 0.5rem;
-
-  border: none;
-  border-radius: 0;
-
-  background-color: transparent;
-
-  cursor: pointer;
-}
-div#modal>button#modalToggle>span{
-  display: block;
-
-  height: 100%;
-  aspect-ratio: 2 / 1;
-
-  margin: 0;
-  padding: 0;
-
-  border: none;
-  border-radius: 0;
-
-  background-color: var(--text3);
-
-  transition: all .15s;
-}
-div#modal.standby>button#modalToggle>span{
-  clip-path: polygon(100% 60%, 100% 75%, 50% 50%, 0 75%, 0 60%, 50% 35%);
-}
-div#modal.active>button#modalToggle>span{
-  clip-path: polygon(100% 40%, 100% 25%, 50% 50%, 0 25%, 0 40%, 50% 65%);
+  right: 0;
 }
 
 /* ============================================================ */
@@ -991,7 +939,7 @@ div#modalCourseList{
   margin: 0;
   padding: 0;
 
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 div#modalCourseList>div.modalCourse{
