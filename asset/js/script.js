@@ -152,7 +152,7 @@ window.addEventListener("load", function(){
   loadCourse(registered_course_1s1);
 
   // 登録済みの集中講義データの反映
-  loadCourseIntensive(course1S1);
+  loadCourseIntensive(registered_course_1s1);
 
   // 授業追加用モーダル内のボタンの動作設定
   document.getElementById("modalClose").addEventListener("click", function(){
@@ -220,7 +220,7 @@ function loadCourse(registered_data){
         // 登録済み曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
           console.log(JSON.parse(this.querySelector("a").getAttribute("course")));
-          if(confirm("選択された講義を削除しますか?")){
+          if(confirm("この講義を削除しますか?\n" + String(NUM_TO_DAY[this.dataset.day]) + "曜 " + String(this.dataset.period) + "限 " + String(JSON.parse(this.querySelector("a").dataset.course).title))){
             registered_data[this.dataset.day-1][this.dataset.period-1] = {};
             loadCourse(registered_data);
           }
@@ -229,7 +229,7 @@ function loadCourse(registered_data){
 
       // 曜限の授業データをセルに書き込み
       const el = document.createElement("a");
-      el.setAttribute("course", JSON.stringify(course_of_clicked_period));
+      el.setAttribute("data-course", JSON.stringify(course_of_clicked_period));
       el.innerText = course_of_clicked_period.title;
       newCell.appendChild(el);
     }
@@ -242,7 +242,7 @@ function loadCourse(registered_data){
 
 /**
  * 登録済みの集中講義データの読み込み
- * @param {Array<Object>} registered_data 登録済み講義データ
+ * @param {Course[][]} registered_data 登録済み講義データ
  */
 function loadCourseIntensive(registered_data){
 
@@ -253,9 +253,9 @@ function loadCourseIntensive(registered_data){
 
   for(let course_intensive of registered_data[5]){
     let course_intensive_container = document.createElement("div");
-    let course_intensive_name = document.createElement("p");
-    course_intensive_name.innerText = course_intensive.name;
-    course_intensive_container.appendChild(course_intensive_name);
+    let course_intensive_title = document.createElement("p");
+    course_intensive_title.innerText = course_intensive.title;
+    course_intensive_container.appendChild(course_intensive_title);
     document.getElementById("courseIntensiveTable").appendChild(course_intensive_container);
   }
 
@@ -390,10 +390,22 @@ function modalActivate(all_course, message){
         console.log("wow! more than two classes per week!");
       }
       else{
-        const {day, period} = parsePeriod(adding_course.periods[0]);
-        registered_course_1s1[Number(day)-1][Number(period)-1] = adding_course;
-        localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
-        loadCourse(registered_course_1s1);
+        const {day, period, intensive} = parsePeriod(adding_course.periods[0]);
+        if(intensive){
+          // 集中講義の場合
+          if(registered_course_1s1[5].indexOf(adding_course) == -1){
+            registered_course_1s1[5].push(adding_course);
+            // registered_course_1s1[5] = {}
+            localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
+            loadCourseIntensive(registered_course_1s1);
+          }
+        }
+        else{
+          // 通常の講義の場合
+          registered_course_1s1[Number(day)-1][Number(period)-1] = adding_course;
+          localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
+          loadCourse(registered_course_1s1);
+        }
       }
     });
 
