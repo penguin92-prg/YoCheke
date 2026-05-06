@@ -219,11 +219,12 @@ function loadCourse(registered_data){
       else{
         // 登録済み曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
-          console.log(JSON.parse(this.querySelector("a").getAttribute("course")));
-          if(confirm("この講義を削除しますか?\n" + String(NUM_TO_DAY[this.dataset.day]) + "曜 " + String(this.dataset.period) + "限 " + String(JSON.parse(this.querySelector("a").dataset.course).title))){
-            registered_data[this.dataset.day-1][this.dataset.period-1] = {};
-            loadCourse(registered_data);
-          }
+          console.log(JSON.parse(this.querySelector("a").dataset.course));
+          modalActivate([JSON.parse(this.querySelector("a").dataset.course)], "登録済みの講義");
+          // if(confirm("この講義を削除しますか?\n" + String(NUM_TO_DAY[this.dataset.day]) + "曜 " + String(this.dataset.period) + "限 " + String(JSON.parse(this.querySelector("a").dataset.course).title))){
+          //   registered_data[this.dataset.day-1][this.dataset.period-1] = {};
+          //   loadCourse(registered_data);
+          // }
         });
       }
 
