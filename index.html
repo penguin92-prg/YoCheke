@@ -213,17 +213,19 @@
       <div id="courseIntensiveView">
         <h3>登録済みの講義（集中）</h3>
         <div id="courseIntensiveTable">
-          <template id="template_courseIntensive">
-            <div class="courseIntensive">
-              <p></p>
-              <button>削除</button>
-            </div>
-          </template>
         </div>
         <button id="addCourseIntensive">
           <i class="fa-solid fa-plus"></i>
           講義 (集中) を追加する
         </button>
+
+        <template id="template_courseIntensive">
+          <div class="courseIntensive">
+            <p></p>
+            <button class="detail">詳細を確認</button>
+            <button class="remove">登録削除</button>
+          </div>
+        </template>
       </div>
 
       <!-- ================================================== -->

@@ -511,8 +511,14 @@ div#courseIntensiveView>div#courseIntensiveTable::-webkit-scrollbar {
   display: none;
 }
 
-div#courseIntensiveView>div#courseIntensiveTable>div{
-  display: block;
+/* ============================================================ */
+
+div#courseIntensiveTable>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 
   width: calc(100% - 2rem * 2);
   height: fit-content;
@@ -526,10 +532,10 @@ div#courseIntensiveView>div#courseIntensiveTable>div{
   background-color: var(--base2);
 }
 
-div#courseIntensiveView>div#courseIntensiveTable>div>p{
+div#courseIntensiveTable>div>p{
   display: block;
 
-  width: fit-content;
+  width: 100%;
   height: fit-content;
 
   margin: 0;
@@ -545,6 +551,46 @@ div#courseIntensiveView>div#courseIntensiveTable>div>p{
   text-decoration: none;
   letter-spacing: 0;
 }
+
+div#courseIntensiveTable>div>button{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  box-shadow: var(--shadowRaised);
+
+  color: var(--text1);
+  font-size: 1.5rem;
+
+  line-height: 2rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  white-space: nowrap;
+}
+div#courseIntensiveTable>div>button.detail{
+  background-color: var(--base4);
+}
+div#courseIntensiveTable>div>button.detail:hover{
+  background-color: var(--base5);
+}
+div#courseIntensiveTable>div>button.detail:active{
+  background-color: var(--base6);
+}
+div#courseIntensiveTable>div>button.remove{
+  background-color: var(--red2);
+}
+
+/* ============================================================ */
+/* ============================================================ */
 
 div#courseIntensiveView>button#addCourseIntensive{
   display: flex;
@@ -1032,7 +1078,12 @@ div#modalCourseList>div.modalCourse>div.modalCourseHeader>button{
 
   cursor: pointer;
 }
-div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:hover{
+div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:disabled{
+  color: var(--text3);
+
+  cursor: auto;
+}
+div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:not(:disabled):hover{
   background-color: var(--base2);
 }
 

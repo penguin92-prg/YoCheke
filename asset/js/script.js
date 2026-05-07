@@ -253,11 +253,20 @@ function loadCourseIntensive(registered_data){
   if(registered_data[5] == null) return;
 
   for(let course_intensive of registered_data[5]){
-    let course_intensive_container = document.createElement("div");
-    let course_intensive_title = document.createElement("p");
-    course_intensive_title.innerText = course_intensive.title;
-    course_intensive_container.appendChild(course_intensive_title);
-    document.getElementById("courseIntensiveTable").appendChild(course_intensive_container);
+    const course_intensive_clone = document.getElementById("template_courseIntensive").content.cloneNode(true);
+    course_intensive_clone.firstElementChild.setAttribute("data-course", JSON.stringify(course_intensive));
+    course_intensive_clone.querySelector("p").innerText = course_intensive.title;
+    course_intensive_clone.querySelector("button.detail").addEventListener("click", function(){
+      modalActivate([JSON.parse(this.parentElement.dataset.course)], "登録済みの集中講義");
+    });
+    course_intensive_clone.querySelector("button.remove").addEventListener("click", function(){
+      if(confirm("登録されている講義を削除します。よろしいですか?")){
+        registered_data[5].splice(registered_data[5].indexOf(JSON.parse(this.parentElement.dataset.course)), 1);
+        localStorage.setItem("registered_course_1s1", JSON.stringify(registered_data))
+        loadCourseIntensive(registered_data);
+      }
+    });
+    document.getElementById("courseIntensiveTable").appendChild(course_intensive_clone);
   }
 
   document.getElementById("addCourseIntensive").addEventListener("click", function(){
@@ -367,6 +376,24 @@ function filterByPeriod(all_course, day, period) {
 // ============================================================
 
 /**
+ * 登録済み講義かどうかを判定
+ * @param {Course} course 判定する講義データ（1講義分）
+ * @returns {boolean} 登録済みかどうかの判定（登録済み→true）
+ */
+function isRegistered(course){
+  return registered_course_1s1.some(day => {
+    if(Array.isArray(day)){
+      return day.some(c => c.id === course.id);
+    }
+    return false;
+  });
+}
+
+// ============================================================
+// ============================================================
+// ============================================================
+
+/**
  * モーダルに授業一覧を表示
  * @param {Course[]} all_course モーダルに表示する講義データ
  * @param {string} message モーダルに表示するメッセージ 
@@ -385,6 +412,11 @@ function modalActivate(all_course, message){
     item_clone.querySelector(".modalCourseLecturer").innerText = course.lecturer;
     item_clone.querySelector(".modalCoursePeriod").innerText = String(course.periods).replace(",", " ･ ");
     item_clone.querySelector(".modalCourseDetail").innerText = course.detail;
+    console.log(registered_course_1s1);
+    if(isRegistered(course)){
+      item_clone.querySelector(".modalCourseAdd").setAttribute("disabled", "");
+      item_clone.querySelector(".modalCourseAdd").innerText = "追加済み";
+    }
     item_clone.querySelector(".modalCourseAdd").addEventListener("click", function(){
       const adding_course = JSON.parse(this.parentElement.parentElement.dataset.course);
       if(adding_course.periods.length >= 2){
@@ -396,7 +428,6 @@ function modalActivate(all_course, message){
           // 集中講義の場合
           if(registered_course_1s1[5].indexOf(adding_course) == -1){
             registered_course_1s1[5].push(adding_course);
-            // registered_course_1s1[5] = {}
             localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
             loadCourseIntensive(registered_course_1s1);
           }
@@ -407,6 +438,8 @@ function modalActivate(all_course, message){
           localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
           loadCourse(registered_course_1s1);
         }
+        this.setAttribute("disabled", "");
+        this.innerText = "追加済み";
       }
     });
 
