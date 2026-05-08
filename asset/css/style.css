@@ -410,13 +410,14 @@ div#classTable>div.classTableColumn>div>p{
 
 div#classTable>div.classTableColumn>div:first-of-type{
   background-color: var(--base3);
+  
+  cursor: auto;
+}
+div#classTable>div#classTablePeriodName>div{
+  cursor: auto;
 }
 div#classTable>div.classTableColumn>div:not(:first-of-type){
   background-color: var(--base2);
-}
-div#classTable>div.classTableColumn>div:not(:first-of-type).active{
-  outline: var(--blue2) 2px solid;
-  outline-offset: -2px;
 }
 div#classTable>div.classTableColumn>div:not(:first-of-type):has(a){
   background-color: var(--blue5);
@@ -575,6 +576,8 @@ div#courseIntensiveTable>div>button{
   letter-spacing: 0;
 
   white-space: nowrap;
+
+  cursor: pointer;
 }
 div#courseIntensiveTable>div>button.detail{
   background-color: var(--base4);
@@ -1079,9 +1082,7 @@ div#modalCourseList>div.modalCourse>div.modalCourseHeader>button{
   cursor: pointer;
 }
 div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:disabled{
-  color: var(--text3);
-
-  cursor: auto;
+  display: none;
 }
 div#modalCourseList>div.modalCourse>div.modalCourseHeader>button:not(:disabled):hover{
   background-color: var(--base2);

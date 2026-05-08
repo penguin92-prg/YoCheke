@@ -176,8 +176,6 @@ window.addEventListener("load", function(){
  * @param {Course[][]} registered_data 登録済み講義データ
  */
 function loadCourse(registered_data){
-
-  console.log(registered_data);
   
   // 各曜限セルの初期化
   document.querySelectorAll("#classTable [data-day]").forEach(cell => {
@@ -203,12 +201,6 @@ function loadCourse(registered_data){
       if(Object.keys(course_of_clicked_period).length === 0){
         // 空き曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
-          // クリックされた曜限以外の選択を解除
-          document.querySelectorAll("#classTable [data-day]").forEach(cell => {
-            cell.classList.remove("active");
-          });
-          this.classList.add("active");
-
           // モーダルに表示
           const all_course_of_clicked_period = filterByPeriod(ALL_SYLLABUS, Number(this.dataset.day), Number(this.dataset.period));
           const modal_message = `講義を見る｜${NUM_TO_DAY[this.dataset.day]}${this.dataset.period}`;
@@ -219,12 +211,7 @@ function loadCourse(registered_data){
       else{
         // 登録済み曜限がクリックされたときの動作設定
         newCell.addEventListener("click", function(){
-          console.log(JSON.parse(this.querySelector("a").dataset.course));
-          modalActivate([JSON.parse(this.querySelector("a").dataset.course)], "登録済みの講義");
-          // if(confirm("この講義を削除しますか?\n" + String(NUM_TO_DAY[this.dataset.day]) + "曜 " + String(this.dataset.period) + "限 " + String(JSON.parse(this.querySelector("a").dataset.course).title))){
-          //   registered_data[this.dataset.day-1][this.dataset.period-1] = {};
-          //   loadCourse(registered_data);
-          // }
+          modalActivate([JSON.parse(this.querySelector("a").dataset.course)], "登録済みの講義｜" + NUM_TO_DAY[this.dataset.day] + this.dataset.period);
         });
       }
 
@@ -381,12 +368,40 @@ function filterByPeriod(all_course, day, period) {
  * @returns {boolean} 登録済みかどうかの判定（登録済み→true）
  */
 function isRegistered(course){
-  return registered_course_1s1.some(day => {
+  return JSON.parse(localStorage.getItem("registered_course_1s1")).some(day => {
     if(Array.isArray(day)){
       return day.some(c => c.id === course.id);
     }
     return false;
   });
+}
+
+// ============================================================
+// ============================================================
+// ============================================================
+
+/**
+ * 登録済み講義を削除する
+ * @param {Course} course 削除する講義データ（1講義分）
+ */
+function removeRegister(course){
+  let registered_data = JSON.parse(localStorage.getItem("registered_course_1s1"));
+
+  for(let nth_period of course.periods){
+    const {day, period, intensive} = parsePeriod(nth_period);
+    if(!intensive){
+      // 通常講義の削除処理
+      registered_data[day-1][period-1] = {};
+      localStorage.setItem("registered_course_1s1", JSON.stringify(registered_data))
+      loadCourse(registered_data);
+    }
+    else{
+      // 集中講義の削除処理
+      registered_data[5].splice(registered_data[5].indexOf(JSON.parse(this.parentElement.dataset.course)), 1);
+      localStorage.setItem("registered_course_1s1", JSON.stringify(registered_data));
+      loadCourseIntensive(registered_data);
+    }
+  }
 }
 
 // ============================================================
@@ -412,15 +427,45 @@ function modalActivate(all_course, message){
     item_clone.querySelector(".modalCourseLecturer").innerText = course.lecturer;
     item_clone.querySelector(".modalCoursePeriod").innerText = String(course.periods).replace(",", " ･ ");
     item_clone.querySelector(".modalCourseDetail").innerText = course.detail;
-    console.log(registered_course_1s1);
+
+    // 登録済み授業は削除ボタンを表示
     if(isRegistered(course)){
-      item_clone.querySelector(".modalCourseAdd").setAttribute("disabled", "");
-      item_clone.querySelector(".modalCourseAdd").innerText = "追加済み";
+      item_clone.querySelector("button.add").setAttribute("disabled", "");
+      item_clone.querySelector("button.remove").removeAttribute("disabled");
     }
-    item_clone.querySelector(".modalCourseAdd").addEventListener("click", function(){
+    else{
+      item_clone.querySelector("button.remove").setAttribute("disabled", "");
+      item_clone.querySelector("button.add").removeAttribute("disabled");
+    }
+
+    item_clone.querySelector("button.remove").addEventListener("click", function(){
+      if(confirm("登録されている講義を削除します。よろしいですか?")){
+        removeRegister(course);
+        this.setAttribute("disabled", "");
+        this.parentElement.querySelector("button.add").removeAttribute("disabled");
+        document.getElementById("modal").classList.remove("active");
+      }
+    });
+    item_clone.querySelector("button.add").addEventListener("click", function(){
       const adding_course = JSON.parse(this.parentElement.parentElement.dataset.course);
       if(adding_course.periods.length >= 2){
-        console.log("wow! more than two classes per week!");
+        for(let nth_period of adding_course.periods){
+          const {day, period, intensive} = parsePeriod(nth_period);
+          if(intensive){
+            // 集中講義の場合
+            if(registered_course_1s1[5].indexOf(adding_course) == -1){
+              registered_course_1s1[5].push(adding_course);
+              localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
+              loadCourseIntensive(registered_course_1s1);
+            }
+          }
+          else{
+            // 通常の講義の場合
+            registered_course_1s1[Number(day)-1][Number(period)-1] = adding_course;
+            localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
+            loadCourse(registered_course_1s1);
+          }
+        }
       }
       else{
         const {day, period, intensive} = parsePeriod(adding_course.periods[0]);
@@ -438,8 +483,19 @@ function modalActivate(all_course, message){
           localStorage.setItem("registered_course_1s1", JSON.stringify(registered_course_1s1));
           loadCourse(registered_course_1s1);
         }
-        this.setAttribute("disabled", "");
-        this.innerText = "追加済み";
+      }
+      this.setAttribute("disabled", "");
+      this.parentElement.querySelector("button.remove").removeAttribute("disabled");
+    });
+
+    item_clone.querySelector("button.detail").addEventListener("click", function(){
+      if(this.parentElement.parentElement.classList.contains("active")){
+        this.parentElement.parentElement.classList.remove("active");
+        this.innerText = "詳細を確認";
+      }
+      else{
+        this.parentElement.parentElement.classList.add("active");
+        this.innerText = "詳細を閉じる"
       }
     });
 
@@ -464,10 +520,6 @@ function modalActivate(all_course, message){
       break;
     }
     item_attr2.innerText = course.category;
-
-    item_clone.firstElementChild.addEventListener("click", function(){
-      this.classList.toggle("active");
-    });
 
     modal.querySelector("#modalCourseList").appendChild(item_clone);
   });
