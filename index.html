@@ -57,7 +57,7 @@
         <a href="./">ホーム</a>
         <a href="./usage/">使い方</a>
         <a href="./about/">サイトについて</a>
-        <a href="./request/">要望を送る</a>
+        <!-- <a href="./request/">要望を送る</a> -->
       </div>
     </header>
 
@@ -79,16 +79,15 @@
           <li data-value="2S2">2年-S2</li>
           <li data-value="2A1">2年-A1</li>
           <li data-value="2A2">2年-A2</li>
-          <li data-value="other">その他</li>
         </ul>
       </div>
 
       <!-- ================================================== -->
 
-      <div id="classView">
+      <div id="courseView">
         <h3>登録済みの講義</h3>
-        <div id="classTable">
-          <div id="classTablePeriodName" class="classTableColumn">
+        <div id="courseTable">
+          <div id="courseTablePeriodName" class="courseTableColumn">
             <div>
             </div>
             <div>
@@ -111,7 +110,7 @@
             </div>
           </div>
 
-          <div class="classTableColumn">
+          <div class="courseTableColumn">
             <div>
               <p>Mon</p>
             </div>
@@ -130,7 +129,7 @@
             </div>
           </div>
 
-          <div class="classTableColumn">
+          <div class="courseTableColumn">
             <div>
               <p>Tue</p>
             </div>
@@ -149,7 +148,7 @@
             </div>
           </div>
 
-          <div class="classTableColumn">
+          <div class="courseTableColumn">
             <div>
               <p>Wed</p>
             </div>
@@ -168,7 +167,7 @@
             </div>
           </div>
 
-          <div class="classTableColumn">
+          <div class="courseTableColumn">
             <div>
               <p>Thu</p>
             </div>
@@ -187,7 +186,7 @@
             </div>
           </div>
 
-          <div class="classTableColumn">
+          <div class="courseTableColumn">
             <div>
               <p>Fri</p>
             </div>
@@ -223,25 +222,99 @@
           <div class="courseIntensive">
             <p></p>
             <button class="detail">詳細を確認</button>
-            <button class="remove">登録削除</button>
+            <button class="remove">登録を削除</button>
           </div>
         </template>
       </div>
 
       <!-- ================================================== -->
 
-      <div id="checkBtnContainer">
-        <h3>登録した講義内容で</h3>
-        <button id="shinfuriCheck">
-          進振り要件を満たすかチェック
-          <i class="fa-solid fa-angles-right"></i>
-        </button>
-        <button id="zenkiShuryoCheck">
-          前期課程修了要件を満たすかチェック
-          <i class="fa-solid fa-angles-right"></i>
+      <div id="facultyView">
+        <h3>科類･学年･クラス</h3>
+
+        <div id="facultySelectContainer">
+          <div class="facultySelect">
+            <label for="karui">科類</label>
+            <select id="karui">
+              <option disabled selected>科類を選択</option>
+              <option value="L1">文科一類</option>
+              <option value="L2">文科二類</option>
+              <option value="L3">文科三類</option>
+              <option value="S1">理科一類</option>
+              <option value="S2">理科二類</option>
+              <option value="S3">理科三類</option>
+            </select>
+          </div>
+  
+          <div class="facultySelect">
+            <label for="grade">学年</label>
+            <select id="grade">
+              <option disabled selected>学年を選択</option>
+              <option value="1">1年</option>
+              <option value="2">2年</option>
+            </select>
+          </div>
+  
+          <div class="facultySelect">
+            <label for="class">クラス</label>
+            <select id="class">
+              <option disabled selected>クラスを選択</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="loadCourseBasic">
+          必修授業 (基礎科目) を自動登録
         </button>
       </div>
+
+      <!-- ================================================== -->
+
+      <div id="checkMenu">
+        <h3>要件チェック</h3>
+
+        <p>登録されている講義内容をもとに、進振りが可能か、前期課程修了が可能かを確認します。単位数の不足がある場合は、カテゴリ別に不足している単位を表示します。</p>
+        
+        <div id="checkBtnContainer">
+          <button id="shinfuriCheckBtn">
+            進振り要件
+            <i class="fa-solid fa-angles-right"></i>
+          </button>
+          <button id="zenkiCheckBtn">
+            前期課程修了要件
+            <i class="fa-solid fa-angles-right"></i>
+          </button>
+        </div>
+      </div>
     </div>
+
+    <!-- ================================================== -->
+    <!-- ================================================== -->
+    <!-- ================================================== -->
+
+    <div id="checkWindow" class="hidden">
+      <div id="checkView">
+        <button id="checkWindowClose">
+          <i class="fa-solid fa-arrow-left-long"></i>
+          講義登録に戻る
+        </button>
+        <h3 title="ツールチップテスト">登録済みの講義と要件の参照</h3>
+        <div>
+          <table id="checkTable">
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- ================================================== -->
+    <!-- ================================================== -->
+
+    <footer>
+      &copy; 2026 penguin92-prg. All rights reserved.
+    </footer>
 
     <!-- ================================================== -->
     <!-- ================================================== -->
@@ -255,14 +328,6 @@
         <button id="cookie-disagree">拒否する</button>
       </div>
     </div>
-
-    <!-- ================================================== -->
-    <!-- ================================================== -->
-    <!-- ================================================== -->
-
-    <footer>
-      &copy; 2026 penguin92-prg. All rights reserved.
-    </footer>
     
     <!-- ================================================== -->
     <!-- ================================================== -->

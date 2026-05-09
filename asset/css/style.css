@@ -153,10 +153,10 @@ span#topMargin{
 div#mainWindow{
   display: grid;
   grid-template:
-    "term term" 5rem
-    "class aa" 1fr
-    "class others" 1fr
-    / 1fr 1fr;
+    "term term term" 5rem
+    "class intensive intensive" 1fr
+    "class faculty check" 1fr
+    / 2fr 1fr 1fr;
   gap: 2rem;
 
   width: calc(100% - 4rem * 2);
@@ -166,6 +166,11 @@ div#mainWindow{
   padding: 2rem 4rem;
 
   background-color: var(--base2);
+
+  transition: transform 0.3s;
+}
+div#mainWindow.hidden{
+  transform: translateX(-100%);
 }
 
 /* ============================================================ */
@@ -290,7 +295,7 @@ ul#termList>li:not(.active):active{
 /* ============================================================ */
 /* ============================================================ */
 
-div#classView{
+div#courseView{
   grid-area: class;
   
   display: block;
@@ -309,7 +314,7 @@ div#classView{
   box-shadow: var(--shadowRaised);
 }
 
-div#classView>h3{
+div#courseView>h3{
   display: block;
 
   width: fit-content;
@@ -329,7 +334,7 @@ div#classView>h3{
   letter-spacing: 0;
 }
 
-div#classView>div#classTable{
+div#courseView>div#courseTable{
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 5rem repeat(5, 1fr);
@@ -351,7 +356,7 @@ div#classView>div#classTable{
 /* ============================================================ */
 
 /* 時限名 */
-div#classTable>div.classTableColumn{
+div#courseTable>div.courseTableColumn{
   display: grid;
   grid-template-rows: 3rem repeat(6, 1fr);
   gap: 2px;
@@ -365,7 +370,7 @@ div#classTable>div.classTableColumn{
   background-color: var(--base1);
 }
 
-div#classTable>div.classTableColumn>div{
+div#courseTable>div.courseTableColumn>div{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -381,11 +386,11 @@ div#classTable>div.classTableColumn>div{
 
   cursor: pointer;
 }
-div#classTable>div#classTablePeriodName>div{
+div#courseTable>div#courseTableColumn>div{
   background-color: var(--base3);
 }
 
-div#classTable>div.classTableColumn>div>p{
+div#courseTable>div.courseTableColumn>div>p{
   display: block;
 
   width: calc(100% - 1rem * 2);
@@ -408,22 +413,24 @@ div#classTable>div.classTableColumn>div>p{
 /* ============================================================ */
 /* ============================================================ */
 
-div#classTable>div.classTableColumn>div:first-of-type{
+div#courseTable>div.courseTableColumn>div:first-of-type{
   background-color: var(--base3);
   
   cursor: auto;
 }
-div#classTable>div#classTablePeriodName>div{
+div#courseTable>div#courseTablePeriodName>div{
+  background-color: var(--base3);
+  
   cursor: auto;
 }
-div#classTable>div.classTableColumn>div:not(:first-of-type){
+div#courseTable>div.courseTableColumn>div:not(:first-of-type){
   background-color: var(--base2);
 }
-div#classTable>div.classTableColumn>div:not(:first-of-type):has(a){
+div#courseTable>div.courseTableColumn>div:not(:first-of-type):has(a){
   background-color: var(--blue5);
 }
 
-div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
+div#courseTable>div.courseTableColumn>div:not(:first-of-type)>a{
   display: -webkit-box;
 
   width: calc(100% - 1rem * 2);
@@ -452,6 +459,8 @@ div#classTable>div.classTableColumn>div:not(:first-of-type)>a{
 /* ============================================================ */
 
 div#courseIntensiveView{
+  grid-area: intensive;
+
   display: grid;
   grid-template-rows: 3rem 1fr;
   gap: 1rem;
@@ -551,6 +560,10 @@ div#courseIntensiveTable>div>p{
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 div#courseIntensiveTable>div>button{
@@ -568,6 +581,8 @@ div#courseIntensiveTable>div>button{
   box-shadow: var(--shadowRaised);
 
   color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
   font-size: 1.5rem;
 
   line-height: 2rem;
@@ -580,13 +595,13 @@ div#courseIntensiveTable>div>button{
   cursor: pointer;
 }
 div#courseIntensiveTable>div>button.detail{
-  background-color: var(--base4);
+  background-color: var(--base3);
 }
 div#courseIntensiveTable>div>button.detail:hover{
-  background-color: var(--base5);
+  background-color: var(--base4);
 }
 div#courseIntensiveTable>div>button.detail:active{
-  background-color: var(--base6);
+  background-color: var(--base5);
 }
 div#courseIntensiveTable>div>button.remove{
   background-color: var(--red2);
@@ -603,12 +618,13 @@ div#courseIntensiveView>button#addCourseIntensive{
   gap: 1rem;
 
   width: fit-content;
-  height: 5rem;
+  height: fit-content;
 
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
 
-  border: var(--blue2) 2px solid;
+  outline: var(--blue2) 2px solid;
+  border: none;
   border-radius: 1rem;
 
   background-color: var(--base1);
@@ -620,7 +636,7 @@ div#courseIntensiveView>button#addCourseIntensive{
   font-weight: 600;
   font-size: 1.5rem;
 
-  line-height: 5rem;
+  line-height: 3rem;
   text-align: justify;
   text-decoration: none;
   letter-spacing: 0;
@@ -630,19 +646,22 @@ div#courseIntensiveView>button#addCourseIntensive{
 
 /* ============================================================ */
 /* ============================================================ */
+/* ============================================================ */
 
-div#checkBtnContainer{
+div#facultyView{
+  grid-area: faculty;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
 
   width: calc(100% - 2rem * 2);
-  height: calc(100% - 1rem * 2);
+  height: calc(100% - 2rem * 2);
 
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 2rem;
 
   border: none;
   border-radius: 2.5rem;
@@ -652,7 +671,7 @@ div#checkBtnContainer{
   box-shadow: var(--shadowRaised);
 }
 
-div#checkBtnContainer>h3{
+div#facultyView>h3{
   display: block;
 
   width: fit-content;
@@ -672,7 +691,192 @@ div#checkBtnContainer>h3{
   letter-spacing: 0;
 }
 
-div#checkBtnContainer>button{
+/* ============================================================ */
+
+div#facultyView>div#facultySelectContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  gap: 0.5rem;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#facultyView>div#facultySelectContainer>div.facultySelect{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+
+  width: 100%;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#facultyView>div#facultySelectContainer>div.facultySelect>label{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#facultyView>div#facultySelectContainer>div.facultySelect>select{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0.25rem 1rem;
+
+  outline: var(--base5) solid 1px;
+  border: none;
+  border-radius: 1.5rem;
+
+  background-color: var(--base1);
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+
+/* ============================================================ */
+
+div#facultyView>button#loadCourseBasic{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0.5rem 2rem;
+
+  outline: var(--blue2) solid 2px;
+  border: none;
+  border-radius: 1rem;
+
+  background-color: var(--base1);
+
+  color: var(--blue2);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+/* ============================================================ */
+
+div#checkMenu{
+  grid-area: check;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0;
+
+  width: calc(100% - 2rem * 2);
+  height: calc(100% - 2rem * 2);
+
+  margin: 0;
+  padding: 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
+
+  box-shadow: var(--shadowRaised);
+}
+
+div#checkMenu>h3{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+div#checkMenu>p{
+  display: block;
+
+  width: fit-content;
+  height: auto;
+
+  margin: 0;
+  padding: 0 0 2rem 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  line-height: 1.5rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+
+div#checkMenu>div#checkBtnContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+div#checkMenu>div#checkBtnContainer>button{
   display: block;
 
   width: fit-content;
@@ -700,14 +904,14 @@ div#checkBtnContainer>button{
 
   cursor: pointer;
 }
-div#checkBtnContainer>button:hover{
+div#checkMenu>div#checkBtnContainer>button:hover{
   filter: brightness(1.2);
 }
-div#checkBtnContainer>button:active{
+div#checkMenu>div#checkBtnContainer>button:active{
   background-color: var(--blue1);
 }
 
-div#checkBtnContainer>button>i{
+div#checkMenu>div#checkBtnContainer>button>i{
   display: inline-block;
 
   width: fit-content;
@@ -721,6 +925,249 @@ div#checkBtnContainer>button>i{
 
   line-height: 3rem;
   text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+/* ============================================================ */
+
+div#checkWindow{
+  position: absolute;
+  top: 10rem;
+  left: 0;
+  
+    display: block;
+
+  width: calc(100% - 4rem * 2);
+  height: calc(100dvh - 10rem - 5rem - 2rem * 2);
+
+  margin: 0;
+  padding: 2rem 4rem;
+
+  background-color: var(--base2);
+
+  transition: transform 0.3s;
+}
+div#checkWindow.hidden{
+  transform: translateX(100%);
+}
+
+/* ============================================================ */
+
+div#checkView>button#checkWindowClose{
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 1rem 0;
+
+  border: none;
+  border-radius: 0;
+
+  background-color: transparent;
+
+  color: var(--text3);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+/* ============================================================ */
+
+div#checkWindow>div#checkView{
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  
+  width: calc(100% - 2rem * 2);
+  height: calc(100% - 6rem - 2rem);
+
+  margin: 0;
+  padding: 6rem 2rem 2rem 2rem;
+
+  border: none;
+  border-radius: 2.5rem;
+
+  background-color: var(--base1);
+
+  box-shadow: var(--shadowRaised);
+}
+
+/* ============================================================ */
+/* ============================================================ */
+
+div#checkView>h3{
+  display: block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+
+  line-height: 4rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+
+div#checkView>div{
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+div#checkView>div>table#checkTable{
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 2px;
+  
+  display: table;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#checkView>div>table#checkTable>tbody{
+  display: table-row-group;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
+div#checkView>div>table#checkTable>tbody td{
+  position: relative;
+
+  width: auto;
+  height: fit-content;
+
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  background: var(--base2);
+
+  vertical-align: middle;
+
+  color: var(--text1);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: justify;
+  text-decoration: none;
+  letter-spacing: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+div#checkView>div>table#checkTable>tbody td.checkTableL{
+  background: var(--base4);
+  font-weight: 600;
+}
+div#checkView>div>table#checkTable>tbody td.checkTableM{
+  background: var(--base3);
+  font-weight: 500;
+}
+div#checkView>div>table#checkTable>tbody td.checkTableS{
+  background: var(--base3);
+}
+
+div#checkView>div>table#checkTable>tbody td>sup{
+  position: absolute;
+  top: 1rem;
+
+  display: inline-block;
+
+  width: fit-content;
+  height: fit-content;
+
+  margin: 0 0 0 0.5rem;
+  padding: 0;
+
+  color: var(--text2);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 75%;
+
+  line-height: 2rem;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================ */
+/* ============================================================ */
+/* ============================================================ */
+
+footer{
+  display: block;
+
+  width: 100%;
+  height: 3rem;
+
+  margin: 0 auto;
+  padding: 1rem 0;
+
+  box-shadow: var(--shadowRaised);
+
+  color: var(--text2);
+  font-family: "Jost", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+  text-align: center;
   text-decoration: none;
   letter-spacing: 0;
 }
@@ -839,32 +1286,6 @@ div#cookieConfirm>div>button:hover{
 }
 div#cookieConfirm>div>button:active{
   background-color: var(--blue1);
-}
-
-/* ============================================================ */
-/* ============================================================ */
-/* ============================================================ */
-
-footer{
-  display: block;
-
-  width: 100%;
-  height: 3rem;
-
-  margin: 0 auto;
-  padding: 1rem 0;
-
-  box-shadow: var(--shadowRaised);
-
-  color: var(--text2);
-  font-family: "Jost", "Noto Sans JP", sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-
-  line-height: 3rem;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0;
 }
 
 /* ============================================================ */
