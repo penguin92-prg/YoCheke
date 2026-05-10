@@ -1122,6 +1122,15 @@ div#checkView>div>table#checkTable>tbody td.checkTableM{
 div#checkView>div>table#checkTable>tbody td.checkTableS{
   background: var(--base3);
 }
+div#checkView>div>table#checkTable>tbody td.OK{
+  background: var(--blue5);
+}
+div#checkView>div>table#checkTable>tbody td.NG{
+  background: var(--red2);
+}
+div#checkView>div>table#checkTable>tbody td.ERROR{
+  background: var(--yellow1);
+}
 
 div#checkView>div>table#checkTable>tbody td>sup{
   position: absolute;

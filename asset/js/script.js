@@ -11,11 +11,50 @@
  * @property {string|number} id
  * @property {string} category
  * @property {number} credit
+ * @property {string[][]} target_class
  */
 
 // ============================================================
 // ============================================================
 // ============================================================
+
+/**
+ * 曜日indexから曜日名への連想配列
+ * @type {Record<number, string>}
+ */
+const NUM_TO_DAY = {
+  1: "月",
+  2: "火",
+  3: "水",
+  4: "木",
+  5: "金"
+};
+
+/**
+ * ターム名からindexへの連想配列
+ */
+const TERM_INDEX = {
+  "1S1": 0,
+  "1S2": 1,
+  "1A1": 2,
+  "1A2": 3,
+  "2S1": 4,
+  "2S2": 5,
+  "2A1": 6,
+  "2A2": 7
+};
+
+/**
+ * 科類indexから科類名への連想配列
+ */
+const INDEX_TO_FACULTY = {
+  "L1": "文科一類",
+  "L2": "文科二類",
+  "L3": "文科三類",
+  "S1": "理科一類",
+  "S2": "理科二類",
+  "S3": "理科三類"
+};
 
 // ============================================================
 // ============================================================
@@ -34,18 +73,6 @@ let ALL_SYLLABUS = [];
 let SYLLABUS_PERIOD = [];
 
 /**
- * 曜日indexから曜日名への連想配列
- * @type {Record<number, string>}
- */
-const NUM_TO_DAY = {
-  1: "月",
-  2: "火",
-  3: "水",
-  4: "木",
-  5: "金"
-};
-
-/**
  * ターム別の登録済み講義データ
  * @type {WeeklyTable[]}
  */
@@ -62,20 +89,6 @@ let registered_course_intensive_all_term;
  * @type {number}
  */
 let current_term_index = 0;
-
-/**
- * ターム名からindexへの連想配列
- */
-const TERM_INDEX = {
-  "1S1": 0,
-  "1S2": 1,
-  "1A1": 2,
-  "1A2": 3,
-  "2S1": 4,
-  "2S2": 5,
-  "2A1": 6,
-  "2A2": 7
-};
 
 /**
  * 表示中の登録講義の単位数合計
@@ -218,13 +231,25 @@ window.addEventListener("load", function(){
     if(user_faculty !== undefined && user_faculty !== null){
       document.getElementById("mainWindow").classList.toggle("hidden");
       document.getElementById("checkWindow").classList.toggle("hidden");
-      
-      console.log(user_faculty);
-      console.log(shinfuri_requirement[user_faculty]);
+      document.getElementById("checkViewTitle").innerText = `登録済みの講義と要件の参照｜進振り｜${INDEX_TO_FACULTY[user_faculty]}`
 
       const container = document.querySelector("#checkTable>tbody");
       container.innerHTML = "";
       renderTable(shinfuri_requirement[user_faculty], container);
+    }
+    else{
+      alert("科類を選択してください");
+    }
+  });
+  document.getElementById("shuryoCheckBtn").addEventListener("click", function(){
+    if(user_faculty !== undefined && user_faculty !== null){
+      document.getElementById("mainWindow").classList.toggle("hidden");
+      document.getElementById("checkWindow").classList.toggle("hidden");
+      document.getElementById("checkViewTitle").innerText = `登録済みの講義と要件の参照｜前期課程修了｜${INDEX_TO_FACULTY[user_faculty]}`
+
+      const container = document.querySelector("#checkTable>tbody");
+      container.innerHTML = "";
+      renderTable(shuryo_requirement[user_faculty], container);
     }
     else{
       alert("科類を選択してください");
@@ -269,9 +294,6 @@ window.addEventListener("load", function(){
     user_class = this.value;
     localStorage.setItem("user_class", this.value);
   });
-
-
-
 });
 
 
@@ -396,14 +418,9 @@ function loadCourse(){
       const el = document.createElement("a");
       el.setAttribute("data-course", JSON.stringify(course));
       el.innerText = course.title;
-      if(parsePeriod(course.periods[0]).day-1 == day_index && parsePeriod(course.periods[0]).period-1 == period_index){
-        credit_sum += Number(course.credits);
-      }
       cell.appendChild(el);
     }
   }
-
-  console.log(credit_sum);
 }
 
 // ============================================================
@@ -772,18 +789,17 @@ const shinfuri_requirement = {
         },
         {
           M: "社会科学",
-          sub: [
-            {
-              S: "法Ⅰまたは政治Ⅰ",
-              description: null,
-              credits: 2,
-              note: []
-            }
-          ],
+          sub: [],
           description: "4単位の取得",
           credits: 4,
           note: [
             "文科一類生は「法Ⅰ」または「政治Ⅰ」の2単位を含む。"
+          ],
+          condition: [
+            {
+              title: "法Ⅰ/政治Ⅰ",
+              credits: 2
+            }
           ]
         },
         {
@@ -797,26 +813,17 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: null,
-          credits: 13,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: null,
-          credits: 5,
-          note: []
-        }
-      ],
+      sub: [],
       description: "13単位の取得（L系列の5単位を含む）",
       credits: 13,
       note: [
         "既修･既修の組合せで外国語を履修する場合を除き、初修外国語として履修するものと同一言語の「〇語初級(演習)①」の2単位を含む。"
+      ],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 5
+        }
       ]
     },
     {
@@ -863,9 +870,7 @@ const shinfuri_requirement = {
           sub: [],
           description: "4単位の取得",
           credits: 4,
-          note: [
-            "文科一類生は「法Ⅰ」または「政治Ⅰ」の2単位を含む。"
-          ]
+          note: []
         },
         {
           M: "人文科学",
@@ -878,26 +883,17 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: null,
-          credits: 13,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: null,
-          credits: 5,
-          note: []
-        }
-      ],
+      sub: [],
       description: "13単位の取得（L系列の5単位を含む）",
       credits: 13,
       note: [
         "既修･既修の組合せで外国語を履修する場合を除き、初修外国語として履修するものと同一言語の「〇語初級(演習)①」の2単位を含む。"
+      ],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 5
+        }
       ]
     },
     {
@@ -957,26 +953,17 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: null,
-          credits: 13,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: null,
-          credits: 5,
-          note: []
-        }
-      ],
+      sub: [],
       description: "13単位の取得（L系列の5単位を含む）",
       credits: 13,
       note: [
         "既修･既修の組合せで外国語を履修する場合を除き、初修外国語として履修するものと同一言語の「〇語初級(演習)①」の2単位を含む。"
+      ],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 5
+        }
       ]
     },
     {
@@ -1034,19 +1021,49 @@ const shinfuri_requirement = {
               S: "数理科学",
               description: "6単位の取得（「数理科学基礎演習」1単位および「数理基礎理論演習」1単位を含む）",
               credits: 6,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "数理科学基礎演習",
+                  credits: 1
+                },
+                {
+                  title: "数理基礎理論演習",
+                  credits: 1
+                }
+              ]
             },
             {
               S: "物質科学",
               description: "「力学」2単位、「熱力学」2単位、および「物性化学」2単位の取得",
               credits: 6,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "力学",
+                  credits: 2
+                },
+                {
+                  title: "熱力学",
+                  credits: 2
+                },
+                {
+                  title: "物性化学",
+                  credits: 2
+                }
+              ]
             },
             {
               S: "生命科学",
               description: "1単位の取得（「生命科学」1単位の取得）",
               credits: 1,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "生命科学",
+                  credits: 1
+                }
+              ]
             }
           ]
         }
@@ -1054,25 +1071,16 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: "8単位の取得（L系列の2単位を含む）",
-          credits: 8,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: "(2単位の取得)",
-          credits: 2,
-          note: []
-        }
-      ],
-      description: "",
+      sub: [],
+      description: "8単位の取得（L系列の2単位を含む）",
       credits: 8,
-      note: []
+      note: [],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 2
+        }
+      ]
     },
     {
       L: "総取得単位数",
@@ -1137,13 +1145,33 @@ const shinfuri_requirement = {
               S: "物質科学",
               description: "「力学」2単位、「化学熱力学」2単位、および「物性化学」2単位の取得",
               credits: 6,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "力学",
+                  credits: 2
+                },
+                {
+                  title: "化学熱力学",
+                  credits: 2
+                },
+                {
+                  title: "物性化学",
+                  credits: 2
+                }
+              ]
             },
             {
               S: "生命科学",
               description: "「生命科学Ⅰ」2単位の取得",
               credits: 2,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "生命科学Ⅰ",
+                  credits: 2
+                }
+              ]
             }
           ]
         }
@@ -1151,25 +1179,16 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: "8単位の取得（L系列の2単位を含む）",
-          credits: 8,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: "(2単位の取得)",
-          credits: 2,
-          note: []
-        }
-      ],
-      description: "",
+      sub: [],
+      description: "8単位の取得（L系列の2単位を含む）",
       credits: 8,
-      note: []
+      note: [],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 2
+        }
+      ]
     },
     {
       L: "総取得単位数",
@@ -1234,13 +1253,33 @@ const shinfuri_requirement = {
               S: "物質科学",
               description: "「力学」2単位、「化学熱力学」2単位、および「物性化学」2単位の取得",
               credits: 6,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "力学",
+                  credits: 2
+                },
+                {
+                  title: "化学熱力学",
+                  credits: 2
+                },
+                {
+                  title: "物性化学",
+                  credits: 2
+                }
+              ]
             },
             {
               S: "生命科学",
               description: "「生命科学Ⅰ」2単位の取得",
               credits: 2,
-              note: []
+              note: [],
+              condition: [
+                {
+                  title: "生命科学Ⅰ",
+                  credits: 2
+                }
+              ]
             }
           ]
         }
@@ -1248,25 +1287,16 @@ const shinfuri_requirement = {
     },
     {
       L: "総合科目",
-      sub: [
-        {
-          M: "(全系列)",
-          sub: [],
-          description: "8単位の取得（L系列の2単位を含む）",
-          credits: 8,
-          note: []
-        },
-        {
-          M: "L(言語・コミュニケーション)",
-          sub: [],
-          description: null,
-          credits: 2,
-          note: []
-        }
-      ],
-      description: "",
+      sub: [],
+      description: "8単位の取得（L系列の2単位を含む）",
       credits: 8,
-      note: []
+      note: [],
+      condition: [
+        {
+          category: "L(言語・コミュニケーション)",
+          credits: 2
+        }
+      ]
     },
     {
       L: "総取得単位数",
@@ -1276,6 +1306,742 @@ const shinfuri_requirement = {
       note: []
     }
   ]
+}
+
+// ============================================================
+// ============================================================
+// ============================================================
+
+const shuryo_requirement = {
+  "L1": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール文科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "社会科学",
+          sub: [],
+          description: "「法Ⅰ、法Ⅱ」4単位、または「政治Ⅰ、政治Ⅱ」4単位を含め8単位の取得",
+          credits: 8,
+          note: [],
+          condition: [
+            {
+              title: "法Ⅰ/政治Ⅰ",
+              credit: 2
+            },
+            {
+              title: "法Ⅱ/政治Ⅱ",
+              credit: 2
+            }
+          ]
+        },
+        {
+          M: "人文科学",
+          sub: [],
+          description: "2分野にわたり4単位の取得",
+          credits: 4,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)",
+          sub: [],
+          description: "9単位の取得",
+          credits: 9,
+          note: [
+            "L系列の9単位は、任意の科目2単位、既修外国語として履修するものと同一言語の科目3単位、初修外国語として履修するものと同一言語の「〇語初級（演習）①、②」4単位を履修する。"
+          ]
+        },
+        {
+          M: "A(思想・芸術)/B(国際・地域)/C(社会・制度)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: [],
+          condition: [
+            {
+              category: "A(思想・芸術)/B(国際・地域)/C(社会・制度)",
+              min_category: 2
+            }
+          ]
+        },
+        {
+          M: "D(人間・環境)/E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "56単位以上の取得",
+      credits: 56,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
+
+  "L2": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール文科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "社会科学",
+          sub: [],
+          description: "「経済Ⅰ、経済Ⅱ、数学Ⅰ、数学Ⅱ」の中から4単位を含め8単位の取得",
+          credits: 8,
+          note: []
+        },
+        {
+          M: "人文科学",
+          sub: [],
+          description: "2分野にわたり4単位の取得",
+          credits: 4,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)",
+          sub: [],
+          description: "9単位の取得",
+          credits: 9,
+          note: [
+            "L系列の9単位は、任意の科目2単位、既修外国語として履修するものと同一言語の科目3単位、初修外国語として履修するものと同一言語の「〇語初級（演習）①、②」4単位を履修する。"
+          ]
+        },
+        {
+          M: "A(思想・芸術)/B(国際・地域)/C(社会・制度)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        },
+        {
+          M: "D(人間・環境)/E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "56単位以上の取得",
+      credits: 56,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
+  
+  "L3": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール文科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "社会科学",
+          sub: [],
+          description: "2分野にわたり4単位の取得",
+          credits: 4,
+          note: []
+        },
+        {
+          M: "人文科学",
+          sub: [],
+          description: "2分野にわたり4単位の取得",
+          credits: 4,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)/A(思想・芸術)/B(国際・地域)/C(社会・制度)",
+          sub: [],
+          description: "3系列以上にわたり、L系列から9単位を含め17単位の取得",
+          credits: 17,
+          note: []
+        },
+        {
+          M: "D(人間・環境)/E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列以上にわたり8単位の取得",
+          credits: 8,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "56単位以上の取得",
+      credits: 56,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
+  
+  "S1": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール理科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "自然科学",
+          sub: [
+            {
+              S: "基礎実験",
+              description: "3単位の取得",
+              credits: 3,
+              note: []
+            },
+            {
+              S: "数理科学",
+              description: "12単位の取得",
+              credits: 12,
+              note: []
+            },
+            {
+              S: "物質科学",
+              description: "10単位の取得",
+              credits: 10,
+              note: []
+            },
+            {
+              S: "生命科学",
+              description: "1単位の取得",
+              credits: 1,
+              note: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)",
+          sub: [],
+          description: "3単位の取得",
+          credits: 3,
+          note: [
+            "既修外国語として履修するものと同一言語の科目から3単位（英語・日本語以外を既修外国語として履修する場合は2単位）を取得する。"
+          ]
+        },
+        {
+          M: "A(思想・芸術)/B(国際・地域)/C(社会・制度)/D(人間・環境)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        },
+        {
+          M: "E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列にわたり6単位の取得",
+          credits: 6,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "63単位以上の取得",
+      credits: 63,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
+  
+  "S2": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール理科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "自然科学",
+          sub: [
+            {
+              S: "基礎実験",
+              description: "3単位の取得",
+              credits: 3,
+              note: []
+            },
+            {
+              S: "数理科学",
+              description: "10単位の取得",
+              credits: 10,
+              note: []
+            },
+            {
+              S: "物質科学",
+              description: "10単位の取得",
+              credits: 10,
+              note: []
+            },
+            {
+              S: "生命科学",
+              description: "4単位の取得",
+              credits: 4,
+              note: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)",
+          sub: [],
+          description: "3単位の取得",
+          credits: 3,
+          note: [
+            "既修外国語として履修するものと同一言語の科目から3単位（英語・日本語以外を既修外国語として履修する場合は2単位）を取得する。"
+          ]
+        },
+        {
+          M: "A(思想・芸術)/B(国際・地域)/C(社会・制度)/D(人間・環境)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        },
+        {
+          M: "E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列にわたり6単位の取得",
+          credits: 6,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "63単位以上の取得",
+      credits: 63,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
+  
+  "S3": [
+    {
+      L: "基礎科目",
+      sub: [
+        {
+          M: "外国語",
+          sub: [
+            {
+              S: "既修外国語",
+              description: "5単位の取得",
+              credits: 5,
+              note: [
+                "英語･日本語以外を既修外国語として履修する場合は6単位を取得する。"
+              ]
+            },
+            {
+              S: "初修外国語",
+              description: "6単位の取得",
+              credits: 6,
+              note: []
+            }
+          ],
+        },
+        {
+          M: "情報",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "身体運動・健康科学実習",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: [],
+        },
+        {
+          M: "初年次ゼミナール理科",
+          sub: [],
+          description: "2単位の取得",
+          credits: 2,
+          note: []
+        },
+        {
+          M: "自然科学",
+          sub: [
+            {
+              S: "基礎実験",
+              description: "3単位の取得",
+              credits: 3,
+              note: []
+            },
+            {
+              S: "数理科学",
+              description: "10単位の取得",
+              credits: 10,
+              note: []
+            },
+            {
+              S: "物質科学",
+              description: "10単位の取得",
+              credits: 10,
+              note: []
+            },
+            {
+              S: "生命科学",
+              description: "4単位の取得",
+              credits: 4,
+              note: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      L: "展開科目",
+      sub: [],
+      description: "任意取得",
+      credits: 0,
+      note: [],
+    },
+    {
+      L: "総合科目",
+      sub: [
+        {
+          M: "L(言語・コミュニケーション)",
+          sub: [],
+          description: "3単位の取得",
+          credits: 3,
+          note: [
+            "既修外国語として履修するものと同一言語の科目から3単位（英語・日本語以外を既修外国語として履修する場合は2単位）を取得する。"
+          ]
+        },
+        {
+          M: "A(思想・芸術)/B(国際・地域)/C(社会・制度)/D(人間・環境)",
+          sub: [],
+          description: "2系列以上にわたり6単位の取得",
+          credits: 6,
+          note: []
+        },
+        {
+          M: "E(物質・生命)/F(数理・情報)",
+          sub: [],
+          description: "2系列にわたり6単位の取得",
+          credits: 6,
+          note: []
+        }
+      ]
+    },
+    {
+      L: "主題科目",
+      sub: [],
+      description: "2単位の取得",
+      credits: 2,
+      note: []
+    },
+    {
+      L: "総取得単位数",
+      sub: [],
+      description: "63単位以上の取得",
+      credits: 63,
+      note: [
+        "進学選択における要求科目となっている他科類の必修科目などの単位を含めることができる。また、科目によってはこの単位数に含めることのできる上限単位数が定められている場合がある。"
+      ]
+    }
+  ],
 }
 
 // ============================================================
@@ -1359,15 +2125,26 @@ function renderTable(data, container) {
         cnt = credit_sum
       }
       else{
-        cnt = getRegisteredCountByName(Lnode.L, current_term_index, "type");
+        cnt = getRegisteredCountByName(Lnode, current_term_index, "type");
       }
       registered_credits.textContent = `登録済み単位数: ${cnt}`;
       tr.appendChild(registered_credits);
 
       // 残り必要単位数
       const credit_diff = document.createElement("td");
-      credit_diff.textContent = `${(cnt - Lnode.credits) >= 0 ? "OK" : "あと" + String(Lnode.credits - cnt) + "単位必要です"} `;
-      credit_diff.setAttribute("data-value", cnt - Lnode.credits);
+      const ok = cnt >= Lnode.credits && satisfyCondition(Lnode.condition, [...registered_course_all_term[current_term_index].flat().filter(course => course), ...registered_course_intensive_all_term[current_term_index]]);
+      if(ok){
+        credit_diff.innerText = "OK"
+        credit_diff.classList.add("OK");
+      }
+      else if((Lnode.credits - cnt) > 0){
+        credit_diff.innerText = `あと${String(Lnode.credits - cnt)}単位必要です`;
+        credit_diff.classList.add("NG");
+      }
+      else{
+        credit_diff.innerText = "条件に合致しません";
+        credit_diff.classList.add("ERROR");
+      }
       tr.appendChild(credit_diff);
 
       container.appendChild(tr);
@@ -1414,7 +2191,6 @@ function renderTable(data, container) {
         if(Mnode.note.length !== 0){
           description.innerHTML += "<sup>注</sup>"
           description.setAttribute("title", Mnode.note);
-          console.log(Mnode.note);
         }
         tr.appendChild(description);
         
@@ -1427,18 +2203,29 @@ function renderTable(data, container) {
         const registered_credits = document.createElement("td");
         let cnt;
         if(Lnode.L == "総合科目" && Mnode.M == "(全系列)"){
-          cnt = getRegisteredCountByName(Lnode.L, current_term_index, "type");
+          cnt = getRegisteredCountByName(Lnode, current_term_index, "type");
         }
         else{
-          cnt = getRegisteredCountByName(Mnode.M, current_term_index, "category");
+          cnt = getRegisteredCountByName(Mnode, current_term_index, "category");
         }
         registered_credits.textContent = `登録済み単位数: ${cnt}`;
         tr.appendChild(registered_credits);
 
         // 残り必要単位数
         const credit_diff = document.createElement("td");
-        credit_diff.textContent = `${(cnt - Mnode.credits) >= 0 ? "OK" : "あと" + String(Mnode.credits - cnt) + "単位必要です"} `;
-        credit_diff.setAttribute("data-value", cnt - Mnode.credits);
+        const ok = cnt >= Mnode.credits && satisfyCondition(Mnode.condition, [...registered_course_all_term[current_term_index].flat().filter(course => course), ...registered_course_intensive_all_term[current_term_index]]);
+        if(ok){
+          credit_diff.innerText = "OK"
+          credit_diff.classList.add("OK");
+        }
+        else if((Mnode.credits - cnt) > 0){
+          credit_diff.innerText = `あと${String(Mnode.credits - cnt)}単位必要です`;
+          credit_diff.classList.add("NG");
+        }
+        else{
+          credit_diff.innerText = "条件に合致しません";
+          credit_diff.classList.add("ERROR");
+        }
         tr.appendChild(credit_diff);
 
         container.appendChild(tr);
@@ -1495,14 +2282,25 @@ function renderTable(data, container) {
 
         // 登録済み単位数
         const registered_credits = document.createElement("td");
-        const cnt = getRegisteredCountByName(Snode.S, current_term_index, "category");
+        const cnt = getRegisteredCountByName(Snode, current_term_index, "category");
         registered_credits.textContent = `登録済み単位数: ${cnt}`;
         tr.appendChild(registered_credits);
 
         // 残り必要単位数
         const credit_diff = document.createElement("td");
-        credit_diff.textContent = `${(cnt - Snode.credits) >= 0 ? "OK" : "あと" + String(Snode.credits - cnt) + "単位必要です"} `;
-        credit_diff.setAttribute("data-value", cnt - Snode.credits);
+        const ok = cnt >= Snode.credits && satisfyCondition(Snode.condition, [...registered_course_all_term[current_term_index].flat().filter(course => course), ...registered_course_intensive_all_term[current_term_index]]);
+        if(ok){
+          credit_diff.innerText = "OK"
+          credit_diff.classList.add("OK");
+        }
+        else if((Snode.credits - cnt) > 0){
+          credit_diff.innerText = `あと${String(Snode.credits - cnt)}単位必要です`;
+          credit_diff.classList.add("NG");
+        }
+        else{
+          credit_diff.innerText = "条件に合致しません";
+          credit_diff.classList.add("ERROR");
+        }
         tr.appendChild(credit_diff);
 
         container.appendChild(tr);
@@ -1513,29 +2311,115 @@ function renderTable(data, container) {
 
 /**
  * 登録されている講義をカウント
- * @param {*} name 
+ * @param {*} node 
  * @param {*} term_index
  * @param {string} sort_key カラム名（type/category)
  * @returns {number} カウント結果
  */
-function getRegisteredCountByName(name, term_index, sort_key) {
+
+function getRegisteredCountByName(node, term_index, sort_key) {
+
   const registered = registered_course_all_term[term_index];
 
   let count = 0;
 
-  for (let day = 0; day < 5; day++) {
-    for (let period = 0; period < 6; period++) {
-      const course = registered[day][period];
-      if (course && course[sort_key] === name.replace("科目", "") && parsePeriod(course.periods[0]).day-1 == day && parsePeriod(course.periods[0]).period-1 == period) {
-        count += course.credits;
+  // 検索キューの正規化
+  const search_name =
+    typeof node === "string"
+      ? node
+      : node.S || node.M || node.L;
+
+  // conditionの正規化
+  const condition =
+    typeof node === "object"
+      ? node.condition
+      : null;
+
+  // 通常講義を探索
+  // 複数カテゴリの合計を探索する場合は、カテゴリ名を/で区切る（総合科目など）
+  // q: 区切られた探索カテゴリ
+  for(let q of search_name.split("/")){
+
+    // 曜限別にforで回す
+    for (let day = 0; day < 5; day++){
+      for (let period = 0; period < 6; period++){
+
+        const course = registered[day][period];
+
+        // 大/中/小区分の合致を確認
+        if (course && course[sort_key] === q.replace("科目", "") && parsePeriod(course.periods[0]).day-1 == day && parsePeriod(course.periods[0]).period-1 == period){
+          count += course.credits;
+        }
       }
     }
   }
 
+  // 集中講義を探索
   const intensive = registered_course_intensive_all_term[term_index];
-  for (const c of intensive) {
-    if (c[sort_key] === name) count++;
+  for (const c of intensive){
+    if(c[sort_key] === node.name){
+      count += c.credits;
+    }
   }
 
   return count;
+}
+
+function satisfyCondition(condition, registeredCourses){
+
+  if(!condition || condition.length === 0){
+    return true;
+  }
+
+  return condition.every(req => {
+
+    // ========================================================
+    // 複数系列条件
+    // ========================================================
+
+    if(req.min_category){
+
+      const categories = req.category.split("/");
+      const satisfied = new Set();
+
+      for(const category of categories){
+
+        let cnt = 0;
+
+        for(const course of registeredCourses){
+          if(course.category === category){
+            cnt += course.credits;
+          }
+        }
+
+        // その系列で1単位以上あれば達成扱い
+        if(cnt > 0){
+          satisfied.add(category);
+        }
+      }
+
+      // 系列数判定
+      return satisfied.size >= req.min_category;
+    }
+
+    // ========================================================
+    // 通常条件
+    // ========================================================
+
+    const key = req.title ? "title" : "category";
+    const values = req[key].split("/");
+
+    let cnt = 0;
+
+    for(const value of values){
+      for(const course of registeredCourses){
+
+        if(course[key] === value){
+          cnt += course.credits;
+        }
+      }
+    }
+
+    return cnt >= req.credits;
+  });
 }
